@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 2021_08_05_062633) do
   end
 
   create_table "images", force: :cascade do |t|
-    t.string "path"
+    t.string "path", null: false
     t.integer "imageable_id"
     t.string "imageable_type"
     t.datetime "created_at", null: false
