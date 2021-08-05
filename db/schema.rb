@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 2021_08_05_062633) do
   create_table "stories", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "image_path"
+    t.string "image_path", null: false
   end
 
   create_table "users", force: :cascade do |t|
