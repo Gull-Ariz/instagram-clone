@@ -79,9 +79,15 @@ ActiveRecord::Schema.define(version: 2021_08_16_144544) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+<<<<<<< HEAD
     t.string "bio"
     t.boolean "account_type_private"
     t.string "user_name"
+=======
+    t.string "user_name"
+    t.string "bio"
+    t.boolean "account_type_private", default: true
+>>>>>>> Adding Create post functionality
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["user_name"], name: "index_users_on_user_name", opclass: :gin_trgm_ops, using: :gin
