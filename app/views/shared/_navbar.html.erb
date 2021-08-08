@@ -17,19 +17,12 @@
     </div>
   </div>
   <div class="navigation-icons">
-    <a href="https://instagram.com/mimoudix" target ="_blank" class="navigation-link">
-      <i class="far fa-compass"></i>
+    <div class="navigation-link">
       <%= link_to 'New Post', new_post_path %>
-    </a>
-    <a class="navigation-link notifica">
-      <i class="far fa-heart">
-        <div class="notification-bubble-wrapper">
-          <div class="notification-bubble">
-            <span class="notifications-count">99</span>
-          </div>
-        </div>
-      </i>
-    </a>
+    </div>
+    <div class="navigation-link" style="margin-left: 10px;">
+      <%= link_to 'Add Story', new_story_path %>
+    </div>
     <a href="https://instagram.com/mimoudix" class="navigation-link">
       <i class="far fa-user-circle"></i>
     </a>

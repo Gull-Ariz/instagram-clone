@@ -69,6 +69,11 @@ ActiveRecord::Schema.define(version: 2021_08_16_144544) do
     t.integer "follower_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+<<<<<<< HEAD
+=======
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_stories_on_user_id"
+>>>>>>> Adding: Add new story and delete feature
   end
 
   create_table "users", force: :cascade do |t|
@@ -99,4 +104,5 @@ ActiveRecord::Schema.define(version: 2021_08_16_144544) do
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
   add_foreign_key "posts", "users"
+  add_foreign_key "stories", "users"
 end
