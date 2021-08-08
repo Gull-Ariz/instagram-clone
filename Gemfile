@@ -11,6 +11,8 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
 #mini magic
 gem "mini_magick"
+#whenever
+gem 'whenever', require: false
 #Bootstrap
 gem 'bootstrap', '~> 5.0.1'
 #jquery
