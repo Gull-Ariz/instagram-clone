@@ -47,6 +47,16 @@ ActiveRecord::Schema.define(version: 2021_08_16_144544) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "follows", force: :cascade do |t|
+    t.integer "following_id", null: false
+    t.integer "follower_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["follower_id"], name: "index_follows_on_follower_id"
+    t.index ["following_id", "follower_id"], name: "index_follows_on_following_id_and_follower_id", unique: true
+    t.index ["following_id"], name: "index_follows_on_following_id"
+  end
+
   create_table "likes", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -69,11 +79,6 @@ ActiveRecord::Schema.define(version: 2021_08_16_144544) do
     t.integer "follower_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-<<<<<<< HEAD
-=======
-    t.bigint "user_id"
-    t.index ["user_id"], name: "index_stories_on_user_id"
->>>>>>> Adding: Add new story and delete feature
   end
 
   create_table "users", force: :cascade do |t|
@@ -84,15 +89,9 @@ ActiveRecord::Schema.define(version: 2021_08_16_144544) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-<<<<<<< HEAD
     t.string "bio"
     t.boolean "account_type_private"
     t.string "user_name"
-=======
-    t.string "user_name"
-    t.string "bio"
-    t.boolean "account_type_private", default: true
->>>>>>> Adding Create post functionality
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["user_name"], name: "index_users_on_user_name", opclass: :gin_trgm_ops, using: :gin
