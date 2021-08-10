@@ -1,4 +1,19 @@
 <% @follower_suggestions.each do |user| %>
-  <%= link_to image_tag(user.profile_picture, style:"width:50px; height:50px; margin-top:30px;")%>
+  <%= link_to image_tag(user.profile_picture, class: "rounded-circle", style:"width:50px; height:50px; margin-top:30px;")%>
   <%= link_to user.user_name, class: "text-dark"%>
+  <% if current_user.id != user.id%>
+    <% if ((current_user.followers.find_by follower_id: user.id).eql? nil)%>
+      <%= form_tag(follow_user_path, method: :post) do %>
+        <%= hidden_field_tag :follower_id, user.id %>
+        <%= submit_tag "Follow", class: "btn btn-info"%>
+      <%end%>
+    <% else %>
+      <% if current_user.followers.find_by follower_id: user.id %>
+        <%= form_tag(unfollow_user_path, method: :post) do %>
+          <%= hidden_field_tag :follower_id, user.id %>
+          <%= submit_tag "UnFollow", class: "btn btn-info"%>
+        <%end%>
+      <%end%>
+    <%end%>
+  <%end%>
 <%end%>

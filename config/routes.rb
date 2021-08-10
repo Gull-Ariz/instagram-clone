@@ -15,5 +15,8 @@ Rails.application.routes.draw do
     end
   end
   resources :stories
+  post "follow/user", to: "account#follow_user"
+  post "unfollow/user", to: "account#unfollow_user"
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
