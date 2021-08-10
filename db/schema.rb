@@ -81,6 +81,13 @@ ActiveRecord::Schema.define(version: 2021_08_16_144544) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "user_followers", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "follower_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
