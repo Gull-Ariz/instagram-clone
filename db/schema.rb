@@ -47,16 +47,6 @@ ActiveRecord::Schema.define(version: 2021_08_16_144544) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "follows", force: :cascade do |t|
-    t.integer "following_id", null: false
-    t.integer "follower_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["follower_id"], name: "index_follows_on_follower_id"
-    t.index ["following_id", "follower_id"], name: "index_follows_on_following_id_and_follower_id", unique: true
-    t.index ["following_id"], name: "index_follows_on_following_id"
-  end
-
   create_table "likes", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -72,13 +62,6 @@ ActiveRecord::Schema.define(version: 2021_08_16_144544) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
-  end
-
-  create_table "stories", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "user_id"
-    t.index ["user_id"], name: "index_stories_on_user_id"
   end
 
   create_table "user_followers", force: :cascade do |t|
@@ -110,5 +93,4 @@ ActiveRecord::Schema.define(version: 2021_08_16_144544) do
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
   add_foreign_key "posts", "users"
-  add_foreign_key "stories", "users"
 end
