@@ -31,6 +31,16 @@
     <%= f.password_field :current_password, autocomplete: "current-password" %>
   </div>
 
+  <div class="field">
+    <%= f.label "Profile Photo"%>
+    <%= f.file_field :profile_picture%>
+  </div>
+
+  <div class="field">
+    <%= f.label "Private Account"%>
+    <%= f.check_box :account_type_private %>
+  </div>
+
   <div class="actions">
     <%= f.submit "Update" %>
   </div>
