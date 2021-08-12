@@ -3,6 +3,7 @@ class AccountController < ApplicationController
   def home_page
     @follower_suggestions = User.all
     @posts = Post.all
+    @comment = Comment.new
   end
 
   def profile

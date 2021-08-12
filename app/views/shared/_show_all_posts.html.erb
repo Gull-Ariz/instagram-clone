@@ -1,6 +1,7 @@
+<link rel='stylesheet' href='/assets/post.scss'>
 <% @posts.each do |post| %>
-  <%= image_tag(User.find(post.user_id).profile_picture, style:"width:50px; height:50px; margin-top:30px;")%>
-  <p><%= User.find(post.user_id).user_name%></p>
+  <%= image_tag(User.find(post.user_id).profile_picture, class: 'profile-img rounded-circle')%>
+  <p><%= User.find(post.user_id).user_name%></p><br/>
   <% if post.user_id.eql? current_user.id%>
   <button ><%= link_to 'Edit',edit_post_path(post)%></button>
   <button ><%= link_to 'Delete', post_path(post),
@@ -8,9 +9,34 @@
     data: { confirm: 'Are you sure?' } %></button>
   <%end%>
   <p><%= post.description%></p>
-  <% (0...post.images.count).each do |image|%>
-    <div style="width:300px; height:300px;">
-      <%= image_tag(post.images[image], style:"width:100%; height:auto;")%>
+
+  <div id='carouselExampleSlidesOnly' class='carousel slide' data-bs-ride='carousel'>
+    <div class='carousel-inner'>
+      <% (0...post.images.count).each_with_index do |image, i|%>
+        <div class='carousel-item <%= 'active ' if i == 0 %> '>
+          <div class='imageContainer'>
+            <%= image_tag(post.images[image], class: 'd-block w-75')%>
+          </div>
+        </div>
+        <%end%>
     </div>
-  <%end%>
+    <button class='carousel-control-prev' type='button' data-bs-target='#carouselExampleControls' data-bs-slide='prev'>
+      <span class='carousel-control-prev-icon' aria-hidden='true'></span>
+      <span class='visually-hidden'>Previous</span>
+    </button>
+    <button class='carousel-control-next' type='button' data-bs-target='#carouselExampleControls' data-bs-slide='next'>
+      <span class='carousel-control-next-icon' aria-hidden='true'></span>
+      <span class='visually-hidden'>Next</span>
+    </button>
+  </div>
+  <div>
+  <%= form_for @comment do |form| %>
+    <div class='form-group'>
+    <%= form.hidden_field :post_id, value: post.id%>
+      <label for='comment'>Your Comment</label>
+      <%= form.text_area :content, class: 'form-control'%>
+    </div>
+    <%= form.submit class: 'btn btn-success'%>
+  <% end %>
+  <%= render 'posts/show_comments', post: post %>
 <%end%>

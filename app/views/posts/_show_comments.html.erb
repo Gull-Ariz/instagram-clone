@@ -1,0 +1,18 @@
+<link rel='stylesheet' href='/assets/comments.scss'>
+
+<div class='page-header'>
+  <h3><small class='pull-right'><%= post.comments.count %> comments</small></h3>
+</div>
+<div class='comments-list'>
+  <% post.comments.each do |comment|%>
+    <div class='media'>
+      <div class='media-left'>
+        <%= image_tag(User.find(comment.user_id).profile_picture, class:'profile-img rounded-circle')%>
+      </div>
+      <div class='media-body'>
+        <h4 class='media-heading user_name '><%= User.find(comment.user_id).user_name%></h4><br/>
+          <%= comment.content %>
+        </div>
+        </div>
+  <% end %>
+</div>
