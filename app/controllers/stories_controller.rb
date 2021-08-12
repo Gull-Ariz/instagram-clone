@@ -1,31 +1,35 @@
 class StoriesController < ApplicationController
   def index
-    @stories = Story.all
+    @stories=Story.all
   end
 
   def new
-    @story = Story.new
+    @story=Story.new
   end
+
   def create
-    @story = Story.new(story_params)
-    @story.user_id = current_user.id
+    @story = current_user.stories.new(story_params)
     if @story.save
       redirect_to @story
     else
-      render 'new'
+      render'new'
     end
   end
+
   def show
-    @story = Story.find(params[:id])
+    @story=find_story(params[:id])
   end
 
   def destroy
-    @story = Story.find(params[:id])
+    @story=find_story(params[:id])
     @story.destroy
-
     redirect_to stories_path
   end
+
   private
+  def find_story(id)
+    Story.find(id)
+  end
   def story_params
     params.require(:story).permit(images: [])
   end
