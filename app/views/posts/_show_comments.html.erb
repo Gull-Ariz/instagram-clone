@@ -12,7 +12,14 @@
       <div class='media-body'>
         <h4 class='media-heading user_name '><%= User.find(comment.user_id).user_name%></h4><br/>
           <%= comment.content %>
-        </div>
-        </div>
+          <% if post.user_id == current_user.id%>
+            <button ><%= link_to 'Edit',edit_comment_path(comment)%></button>
+            <button ><%= link_to 'Delete', comment_path(comment),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %>
+            </button>
+          <% end %>
+      </div>
+    </div>
   <% end %>
 </div>
