@@ -1,9 +1,10 @@
 class AccountController < ApplicationController
 
   def home_page
-    @follower_suggestions = User.all
-    @posts = Post.all
-    @comment = Comment.new
+    @follower_suggestions=User.all
+    @posts=Post.all
+    @comment=Comment.new
+    @like=Like.new
   end
 
   def profile
