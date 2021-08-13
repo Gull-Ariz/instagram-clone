@@ -1,10 +1,13 @@
 class PostsController < ApplicationController
+
+  before_action :find_post, only: [:show, :edit, :update, :destroy]
+
   def index
-    @posts=Post.all
+    @posts = Post.all
   end
 
   def new
-    @post=Post.new
+    @post = Post.new
   end
 
   def create
@@ -13,51 +16,49 @@ class PostsController < ApplicationController
       if @post.save
         redirect_to @post
       else
-        render'new'
+        render 'new'
       end
     else
       @post.errors.add(:base, 'Post cannot contain more than 10 images')
-      render'new'
+      render 'new'
     end
   end
+
   def show
-    @post=find_post(params[:id])
   end
 
   def edit
-    @post=find_post(params[:id])
   end
 
   def update
-    @post=find_post(params[:id])
     post_obj_check_images=Post.new(post_params)
     if @post.images.length + post_obj_check_images.images.length <= 10
       if @post.update(post_params)
         redirect_to @post
       else
-        render'edit'
+        render 'edit'
       end
     else
       @post.errors.add(:base, 'Post cannot contain more than 10 images')
       render 'edit'
     end
   end
-  def destroy
-    @post = find_post(params[:id])
-    @post.destroy
 
+  def destroy
+    @post.destroy
     redirect_to posts_path
   end
 
   def delete_image_attachment
-    @image=ActiveStorage::Attachment.find(params[:id])
+    @post = Post.find(params[:post_id])
+    @image = @post.images.find(params[:image_id])
     @image.purge
     redirect_back(fallback_location: posts_path)
   end
 
   private
-    def find_post(id)
-      Post.find(id)
+    def find_post
+      @post = Post.find(params[:id])
     end
     def post_params
       params.require(:post).permit(:description, images: [])
