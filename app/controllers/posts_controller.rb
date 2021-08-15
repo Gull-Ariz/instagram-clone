@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
 
-  before_action :find_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :delete_image_attachment]
 
   def index
     @posts = Post.all
@@ -12,14 +12,10 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.new(post_params)
-    if @post.images.length <= 10
-      if @post.save
-        redirect_to @post
-      else
-        render 'new'
-      end
+    if @post.save
+      flash.alert = 'Post created successfully.'
+      redirect_to authenticated_root_path
     else
-      @post.errors.add(:base, 'Post cannot contain more than 10 images')
       render 'new'
     end
   end
@@ -31,16 +27,11 @@ class PostsController < ApplicationController
   end
 
   def update
-    post_obj_check_images=Post.new(post_params)
-    if @post.images.length + post_obj_check_images.images.length <= 10
-      if @post.update(post_params)
-        redirect_to @post
-      else
-        render 'edit'
-      end
+    if @post.update(post_params)
+      flash.alert = 'Post updated successfully.'
+      redirect_to authenticated_root_path
     else
-      @post.errors.add(:base, 'Post cannot contain more than 10 images')
-      render 'edit'
+      redirect_to posts_path
     end
   end
 
@@ -57,9 +48,11 @@ class PostsController < ApplicationController
   end
 
   private
-    def find_post
+
+    def set_post
       @post = Post.find(params[:id])
     end
+
     def post_params
       params.require(:post).permit(:description, images: [])
     end

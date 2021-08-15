@@ -1,5 +1,5 @@
 <div class="container">
-  <%= form_with model: @post, local: true do |form|%>
+  <%= form_with model: @post do |form|%>
     <% if @post.errors.any? %>
       <h2>
         <%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:
@@ -20,19 +20,15 @@
       <%= form.label :images%>
       <%= form.file_field :images, multiple: true%>
     </div>
-    <%= (0...@post.images.count).each do |image|%>
-      <div class='img-thumbnail'>
-        <%= image_tag(@post.images[image])%>
-
-          <%= form_with url: delete_image_attachment_post_path(@post.images[image].id), method: :delete do |form| %>
-            <%= form.hidden_field :image_id, value: @post.images[image].id%>
-            <%= form.hidden_field :post_id, value: @post.id%>
-            <%= form.submit "Remove"%>
-          <%end%>
-      </div>
-    <%end%>
-    <p>
-      <%= form.submit %>
-    </p>
+    <div class="field">
+    </div>
+  <p><%= form.submit %></p>
   <% end%>
+  <% @post.images.each do |image|%>
+  <div class='img-thumbnail'>
+    <%= image_tag(image)%>
+    <%= button_to "Delete Image", { action: "delete_image_attachment", image_id: image.id, post_id: @post.id },
+        method: :delete, data: { confirm: "Are you sure?" } %>
+  </div>
+<%end%>
 </div>

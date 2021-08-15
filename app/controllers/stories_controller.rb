@@ -1,13 +1,13 @@
 class StoriesController < ApplicationController
 
-  before_action :find_story, only: [:show, :destroy]
+  before_action :set_story, only: [:show, :destroy]
 
   def index
     @stories = Story.all
   end
 
   def new
-    @story = Story.new
+    @story = current_user.Story.new
   end
 
   def create
@@ -20,19 +20,20 @@ class StoriesController < ApplicationController
   end
 
   def show
-    @story = find_story(params[:id])
+
   end
 
   def destroy
-    @story = find_story(params[:id])
     @story.destroy
     redirect_to stories_path
   end
 
   private
-  def find_story
+
+  def set_story
     @story = Story.find(params[:id])
   end
+
   def story_params
     params.require(:story).permit(images: [])
   end

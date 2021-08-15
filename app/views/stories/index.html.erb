@@ -1,15 +1,15 @@
 <div class="container">
   <% @stories.each do |story| %>
-    <%= image_tag(User.find(story.user_id).profile_picture, class:'img-thumbnail')%>
-    <p><%= User.find(story.user_id).user_name%></p>
+    <%= image_tag(story.user.profile_picture, class:'img-thumbnail')%>
+    <p><%= story.user.user_name%></p>
     <% if story.user_id.eql? current_user.id%>
       <button ><%= link_to 'Delete', story_path(story),
         method: :delete,
         data: { confirm: 'Are you sure?' } %></button>
     <%end%>
-    <%= (0...story.images.count).each do |image|%>
+    <%= story.images.each do |image|%>
       <div class='img-thumbnail'>
-        <%= image_tag(story.images[image])%>
+        <%= image_tag(image)%>
       </div>
     <%end%>
   <%end%>
