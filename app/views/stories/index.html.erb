@@ -2,11 +2,9 @@
   <% @stories.each do |story| %>
     <%= image_tag(story.user.profile_picture, class:'img-thumbnail')%>
     <p><%= story.user.user_name%></p>
-    <% if story.user_id.eql? current_user.id%>
-      <button ><%= link_to 'Delete', story_path(story),
+    <button ><%= link_to 'Delete', story_path(story),
         method: :delete,
         data: { confirm: 'Are you sure?' } %></button>
-    <%end%>
     <%= story.images.each do |image|%>
       <div class='img-thumbnail'>
         <%= image_tag(image)%>

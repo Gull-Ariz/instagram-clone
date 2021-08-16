@@ -1,6 +1,7 @@
 class StoriesController < ApplicationController
 
   before_action :set_story, only: [:show, :destroy]
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def index
     @stories = Story.all
@@ -29,12 +30,16 @@ class StoriesController < ApplicationController
   end
 
   private
-
   def set_story
     @story = Story.find(params[:id])
   end
 
   def story_params
     params.require(:story).permit(images: [])
+  end
+
+  def user_not_authorized
+    flash[:message] = "You are not authorized to perform this action."
+    redirect_to authenticated_root_path
   end
 end
