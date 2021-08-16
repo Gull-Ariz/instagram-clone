@@ -1,8 +1,7 @@
 class PostsController < ApplicationController
 
   before_action :set_post, only: [:show, :edit, :update, :destroy, :delete_image_attachment]
-
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  before_action :can_authorize, only: [:show, :edit, :update, :destroy]
 
   def index
     @posts = Post.all
@@ -11,16 +10,15 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    authorize @post
   end
 
   def create
     @post = current_user.posts.new(post_params)
-    authorize@post
     if @post.save
       flash.alert = 'Post created successfully.'
       redirect_to authenticated_root_path
     else
+      flash.alert = 'Error in creating Post'
       render 'new'
     end
   end
@@ -36,6 +34,7 @@ class PostsController < ApplicationController
       flash.alert = 'Post updated successfully.'
       redirect_to authenticated_root_path
     else
+      flash.alert = 'Error in updating post'
       redirect_to posts_path
     end
   end
@@ -46,7 +45,6 @@ class PostsController < ApplicationController
   end
 
   def delete_image_attachment
-    @post = Post.find(params[:post_id])
     @image = @post.images.find(params[:image_id])
     @image.purge
     redirect_back(fallback_location: posts_path)
@@ -56,6 +54,9 @@ class PostsController < ApplicationController
 
     def set_post
       @post = Post.find(params[:id])
+    end
+
+    def can_authorize
       authorize @post
     end
 
@@ -63,8 +64,4 @@ class PostsController < ApplicationController
       params.require(:post).permit(:description, images: [])
     end
 
-    def user_not_authorized
-      flash[:message] = "You are not authorized to perform this action."
-      redirect_to authenticated_root_path
-    end
 end

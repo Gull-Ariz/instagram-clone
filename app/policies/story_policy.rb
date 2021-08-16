@@ -15,7 +15,7 @@ class StoryPolicy < ApplicationPolicy
   end
 
   def update?
-    return true if user.present? && user == story.user
+    verify_user_post
   end
 
   def show?
@@ -23,7 +23,12 @@ class StoryPolicy < ApplicationPolicy
   end
 
   def destroy?
-    return true if user.present? && user == story.user
+    verify_user_story
   end
 
+  private
+
+  def verify_user_story
+    return true if user.present? && user == story.user
+  end
 end

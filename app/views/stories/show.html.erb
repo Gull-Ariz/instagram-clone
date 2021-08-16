@@ -1,7 +1,7 @@
 <div class="container">
-  <%= (0...@story.images.count).each do |image|%>
+  <%= @story.images.each do |image|%>
     <div class='img-thumbnail'>
-      <%= image_tag(@story.images[image])%>
+      <%= image_tag(image)%>
     </div>
   <%end%>
 </div>

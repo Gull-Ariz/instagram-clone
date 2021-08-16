@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_11_081916) do
+ActiveRecord::Schema.define(version: 2021_08_16_144544) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_trgm"
   enable_extension "plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -63,6 +64,13 @@ ActiveRecord::Schema.define(version: 2021_08_11_081916) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
+  create_table "stories", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_stories_on_user_id"
+  end
+
   create_table "user_followers", force: :cascade do |t|
     t.integer "user_id"
     t.integer "follower_id"
@@ -78,11 +86,12 @@ ActiveRecord::Schema.define(version: 2021_08_11_081916) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "user_name"
     t.string "bio"
     t.boolean "account_type_private"
+    t.string "user_name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["user_name"], name: "index_users_on_user_name", opclass: :gin_trgm_ops, using: :gin
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -91,4 +100,5 @@ ActiveRecord::Schema.define(version: 2021_08_11_081916) do
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
   add_foreign_key "posts", "users"
+  add_foreign_key "stories", "users"
 end

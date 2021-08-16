@@ -19,5 +19,5 @@
 
 # Learn more: http://github.com/javan/whenever
 every 1.minute do
-  rake 'stories:delete_story'
+  runner "StoriesCleanupJob.perform"
 end

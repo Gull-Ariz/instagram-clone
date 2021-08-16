@@ -1,11 +1,10 @@
 <div class="container">
   <% @stories.each do |story| %>
-    <%= image_tag(story.user.profile_picture, class:'img-thumbnail')%>
     <p><%= story.user.user_name%></p>
     <button ><%= link_to 'Delete', story_path(story),
         method: :delete,
         data: { confirm: 'Are you sure?' } %></button>
-    <%= story.images.each do |image|%>
+    <% story.images.each do |image|%>
       <div class='img-thumbnail'>
         <%= image_tag(image)%>
       </div>

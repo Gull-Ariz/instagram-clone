@@ -20,11 +20,16 @@ class PostPolicy < ApplicationPolicy
   end
 
   def update?
-    return true if user.present? && user == post.user
+    verify_user_post
   end
 
   def destroy?
-    return true if user.present? && user == post.user
+    verify_user_post
   end
 
+  private
+
+  def verify_user_post
+    return true if user.present? && user == post.user
+  end
 end

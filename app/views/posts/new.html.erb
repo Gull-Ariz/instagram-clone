@@ -23,9 +23,4 @@
   <p>
     <%= form.submit %>
   </p>
-  <%= form_with url: delete_image_attachment_post_path(image.id), method: :delete do |f| %>
-      <%= f.hidden_field :image_id, value: image.id%>
-      <%= f.hidden_field :post_id, value: @post.id%>
-      <%= f.submit "Remove"%>
-    <%end%>
 <% end%>
