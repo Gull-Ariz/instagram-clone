@@ -1,7 +1,8 @@
 class AccountController < ApplicationController
+  before_action :set_user, only: [:profile]
 
   def home_page
-    @follower_suggestions = User.all
+    @follower_suggestions = User.where.not(id: current_user.id)
     @posts = Post.all
   end
 
@@ -18,6 +19,7 @@ class AccountController < ApplicationController
     end
     redirect_to authenticated_root_path
   end
+
   def unfollow_user
     follower_id = params[:follower_id]
     if current_user.followers.find_by(follower_id: follower_id).destroy
@@ -28,4 +30,8 @@ class AccountController < ApplicationController
     redirect_to authenticated_root_path
   end
 
+  private
+  def set_user
+    @user = User.find( params[:id] )
+  end
 end

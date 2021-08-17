@@ -1,3 +1,54 @@
 // Place all the styles related to the account controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.insta-post {
+  margin-top: 20px;
+}
+
+.post-meta{
+  text-align: left;
+  font-weight: bold;
+  padding: 5px;
+  border: 1px solid #ddd;
+  img {
+    margin-right: 10px;
+  }
+}
+
+.account-summary{
+  text-align: left;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.profile-path {
+  text-decoration: none;
+  color: black;
+}
+
+.follower-suggestions {
+  margin-top: 20px;
+  background: #fff;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  max-height: 1000px;
+  width: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.profile-pic {
+  border-radius: 50%;
+}
+
+.profile-stats {
+  width: 120px;
+  float: left;
+}
+
+.post-details {
+  background: #fff;
+  padding: 20px;
+}
