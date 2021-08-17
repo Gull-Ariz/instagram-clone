@@ -1,3 +1,6 @@
 <h1>Post#index</h1>
+<% flash.each do |key, message| %>
+  <p><%= message %></p>
+<% end %>
 <p>Find me in app/views/post/index.html.erb</p>
 <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
