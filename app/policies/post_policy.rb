@@ -30,6 +30,6 @@ class PostPolicy < ApplicationPolicy
   private
 
   def verify_user_post
-    return true if user.present? && user == post.user
+    user.present? && user == post.user
   end
 end

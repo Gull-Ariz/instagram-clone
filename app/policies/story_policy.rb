@@ -29,6 +29,6 @@ class StoryPolicy < ApplicationPolicy
   private
 
   def verify_user_story
-    return true if user.present? && user == story.user
+    user.present? && user == story.user
   end
 end
