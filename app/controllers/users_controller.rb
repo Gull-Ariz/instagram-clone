@@ -1,4 +1,4 @@
-class AccountController < ApplicationController
+class UsersController < ApplicationController
   before_action :set_user, only: [:profile]
 
   def home_page
