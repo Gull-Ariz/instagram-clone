@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   def home_page
     @follower_suggestions = User.where.not(id: current_user.id)
     @posts = Post.all
+    @users = User.all.joins(:stories).where.not(stories: {id: nil})
   end
 
   def profile

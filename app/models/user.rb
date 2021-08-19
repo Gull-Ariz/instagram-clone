@@ -19,5 +19,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   validates :user_name, presence: true, format: { with: /\A^[A-Za-z][a-zA-Z0-9]+\z/ }, length: { maximum: 100 }
   validates :password, presence: true
-  validates :email, presence: true, format: { with: /\A^[A-Za-z][a-zA-Z0-9]+\z/ }
+  validates :email, presence: true
   end

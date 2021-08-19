@@ -3,12 +3,12 @@ Rails.application.routes.draw do
   devise_scope :user do
     authenticated :user do
       root 'users#home_page', as: :authenticated_root
-      resources :posts do
+      resources :posts, except: [:index] do
         member do
           delete :delete_image_attachment
         end
       end
-      resources :stories
+      resources :stories, only: [:index, :new, :create, :show, :destroy]
       get "profile/:id", to: "users#profile", as: :profile
       post "follow/user", to: "users#follow_user"
       post "unfollow/user", to: "users#unfollow_user"

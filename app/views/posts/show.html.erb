@@ -1,10 +1,13 @@
-<div class='container'>
+<div class='container top-margin'>
   <p>
+    <% if %>
     <%= @post.description %>
   </p>
-  <% (0...@post.images.count).each do |image|%>
-    <div class='img-thumbnail'>
-      <%= image_tag(@post.images[image])%>
-    </div>
-  <%end%>
+  <div class='cards'>
+    <% @post.images.each do |image|%>
+      <div class='card'>
+        <%= image_tag image %>
+      </div>
+    <%end%>
+  </div>
 </div>
