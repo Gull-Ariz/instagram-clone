@@ -13,15 +13,15 @@
 
         <div class='float-end'>
           <% if current_user.id != user.id%>
-            <% if ((current_user.followers.find_by follower_id: user.id).eql? nil)%>
-              <%= form_tag(follow_user_path, method: :post) do %>
-                <%= hidden_field_tag :follower_id, user.id %>
+            <% if ((current_user.followeds.find_by user_id: user.id).eql? nil)%>
+              <%= form_tag(follow_user_path, method: :post, id: 'follow_form', remote: true) do %>
+                <%= hidden_field_tag :user_id, user.id %>
                 <%= submit_tag "Follow", class: "btn btn-info"%>
               <%end%>
             <% else %>
-              <% if current_user.followers.find_by follower_id: user.id %>
-                <%= form_tag(unfollow_user_path, method: :post) do %>
-                  <%= hidden_field_tag :follower_id, user.id %>
+              <% if current_user.followeds.find_by user_id: user.id %>
+                <%= form_tag(unfollow_user_path, method: :post, remote: true) do %>
+                  <%= hidden_field_tag :user_id, user.id %>
                   <%= submit_tag "UnFollow", class: "btn btn-info"%>
                 <%end%>
               <%end%>

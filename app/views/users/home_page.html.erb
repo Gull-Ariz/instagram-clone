@@ -46,7 +46,7 @@
               </button>
             </div>
           <%end%>
-          <p class='text-muted'><%= time_ago_in_words post.created_at %>ago</p>
+          <p class='text-muted'><%= time_ago_in_words post.created_at %> ago</p>
         </div>
       <%end%>
     </div>
@@ -59,9 +59,9 @@
         <%end%>
         <%= link_to current_user.user_name, profile_path(current_user.id), class:'profile-path'%>
       </div>
-      <div class='follower-suggestions'>
+      <div id='follower-suggestions' class='follower-suggestions' >
         <p class='text-muted'>Suggestionsfor you</p>
-        <%= render 'shared/followers_suggestion'%>
+        <%= render 'shared/followers_suggestion' %>
       </div>
     </div>
   </div>

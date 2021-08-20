@@ -12,23 +12,29 @@ class UsersController < ApplicationController
   end
 
   def follow_user
-    follower_id = params[:follower_id]
-    if current_user.followers.create(follower_id: follower_id)
+    if current_user.followeds.create(user_id: params[:user_id])
+      @follower_suggestions = User.where.not(id: current_user.id)
       flash[:success] = "Now Following User"
+      respond_to do |format|
+        format.html { redirect_to authenticated_root_path }
+        format.js
+      end
     else
       flash[:danger] = "Unable to add follower"
     end
-    redirect_to authenticated_root_path
   end
 
   def unfollow_user
-    follower_id = params[:follower_id]
-    if current_user.followers.find_by(follower_id: follower_id).destroy
+    if current_user.followeds.find_by(user_id: params[:user_id]).destroy
+      @follower_suggestions = User.where.not(id: current_user.id)
       flash[:success] = "Successfully Unfollow"
+      respond_to do |format|
+        format.html { redirect_to authenticated_root_path }
+        format.js
+      end
     else
       flash[:danger] = "Unable to unfollow"
     end
-    redirect_to authenticated_root_path
   end
 
   private
