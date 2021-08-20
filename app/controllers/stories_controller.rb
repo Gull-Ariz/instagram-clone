@@ -1,11 +1,12 @@
 class StoriesController < ApplicationController
 
-  before_action :set_story, only: [:destroy]
-  before_action :can_authorize, only: [:create, :destroy]
+  before_action :set_story, only: [:show, :destroy]
+  before_action :can_authorize, only: [:show, :destroy]
 
 
   def index
     @stories = Story.all
+    authorize @stories
   end
 
   def new
@@ -24,7 +25,6 @@ class StoriesController < ApplicationController
   end
 
   def show
-    @story = Story.find_by(user_id: params[:id])
   end
 
   def destroy

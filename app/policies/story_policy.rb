@@ -7,7 +7,10 @@ class StoryPolicy < ApplicationPolicy
   end
 
   def index?
-    true
+    # user_followerss = UserFollower.all
+    # follower_ids = @user.followers.map{|fid| fid['follower_id']}
+    # follower_ids.map{|fid| fid['follower_id']}.include? @story.user_id || verify_user_story
+    return false
   end
 
   def create?

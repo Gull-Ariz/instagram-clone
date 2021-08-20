@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   devise_for :users
   devise_scope :user do
     authenticated :user do
-      root 'users#home_page', as: :authenticated_root
-      resources :posts, except: [:index] do
+      root 'posts#index', as: :authenticated_root
+      resources :posts do
         member do
           delete :delete_image_attachment
         end
