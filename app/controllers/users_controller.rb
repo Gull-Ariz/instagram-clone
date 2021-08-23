@@ -1,11 +1,11 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:profile]
+  before_action :set_user, only: [:show]
 
-  def profile
+  def show
   end
 
-  def follow_user
-    if current_user.followeds.create(user_id: params[:user_id])
+  def follow
+    if current_user.followeds.create(user_id: params[:id])
       respond_to do |format|
         format.html { redirect_to authenticated_root_path }
         format.js
@@ -15,8 +15,8 @@ class UsersController < ApplicationController
     end
   end
 
-  def unfollow_user
-    if current_user.followeds.find_by(user_id: params[:user_id]).destroy
+  def unfollow
+    if current_user.followeds.find_by(user_id: params[:id]).destroy
       respond_to do |format|
         format.html { redirect_to authenticated_root_path }
         format.js

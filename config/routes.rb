@@ -9,9 +9,12 @@ Rails.application.routes.draw do
         end
       end
       resources :stories, only: [:index, :new, :create, :show, :destroy]
-      get "profile/:id", to: "users#profile", as: :profile
-      post "follow/user", to: "users#follow_user"
-      post "unfollow/user", to: "users#unfollow_user"
+      resources :users, only: [:show] do
+        member do
+          post :follow
+          post :unfollow
+        end
+      end
     end
 
     unauthenticated do

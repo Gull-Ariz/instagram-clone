@@ -17,3 +17,21 @@
 //= require jquery3
 //= require popper
 //= require bootstrap
+
+var limit;
+
+limit = 10;
+
+$(document).ready(function() {
+  $('#images-count').change(function() {
+    var files;
+    files = $(this)[0].files;
+    if (files.length > limit) {
+      alert('You can select max ' + limit + ' images.');
+      $('#images-count').val('');
+      return false;
+    } else {
+      return true;
+    }
+  });
+});
