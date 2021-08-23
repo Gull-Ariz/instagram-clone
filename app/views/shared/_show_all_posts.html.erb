@@ -1,7 +1,6 @@
 <link rel='stylesheet' href='/assets/post.scss'>
 <% @posts.each do |post| %>
-  <%= image_tag(User.find(post.user_id).profile_picture, class: 'profile-img rounded-circle')%>
-  <p><%= User.find(post.user_id).user_name%></p><br/>
+  <p><%= post.user.user_name%></p><br/>
   <% if post.user_id.eql? current_user.id%>
   <button ><%= link_to 'Edit',edit_post_path(post)%></button>
   <button ><%= link_to 'Delete', post_path(post),
@@ -12,10 +11,10 @@
 
   <div id='carouselExampleSlidesOnly' class='carousel slide' data-bs-ride='carousel'>
     <div class='carousel-inner'>
-      <% (0...post.images.count).each_with_index do |image, i|%>
+      <% post.images.each_with_index do |image, i|%>
         <div class='carousel-item <%= 'active ' if i == 0 %> '>
           <div class='imageContainer'>
-            <%= image_tag(post.images[image], class: 'd-block w-75')%>
+            <%= image_tag(image, class: 'd-block w-100')%>
           </div>
         </div>
         <%end%>
@@ -29,38 +28,11 @@
       <span class='visually-hidden'>Next</span>
     </button>
   </div>
-  <div>
-    <% if post.likes.find_by(user_id: current_user.id).nil? %>
-      <%= form_for @like do |form|%>
-        <div class='form-group'>
-          <%= form.hidden_field :post_id, value: post.id%>
-          <%= post.likes.count %>likes<span>
-          <%= form.button(type: 'submit', class:'btn btn-light') do %>
-              <span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                </svg>
-              </span>
-            <%end%>
-        </div>
-      <%end%>
-    <% else %>
-      <% l = Like.find_by(post_id: post.id, user_id: current_user.id)%>
-      <%= post.likes.count %>likes<span>
-      <%= link_to like_path(l), method: :delete, class:'btn btn-light' do %>
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-        </svg>
-      <%end%>
-    <%end%>
+  <%= render 'likes/post_likes', post: post%>
+  <div class='comment-form'>
+    <%= render 'comments/comment_form', post: post%>
   </div>
-  <%= form_for @comment do |form| %>
-    <div class='form-group'>
-      <%= form.hidden_field :post_id, value: post.id%>
-      <label for='comment'>Your Comment</label>
-      <%= form.text_area :content, class: 'form-control'%>
-      <%= form.submit class: 'btn btn-success'%>
-    </div>
-  <% end %>
-  <%= render 'posts/show_comments', post: post %>
+  <div id='post-comments' class='comments'>
+    <%= render 'posts/show_comments', post: post %>
+  </div>
 <%end%>

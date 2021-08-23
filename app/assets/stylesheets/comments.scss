@@ -2,18 +2,20 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-textarea{
-  height:80px;
-  min-height:80px;
-  max-height:80px;
-}
 
 .profile-img{
   width: 50px;
   height: 50px;
+
   float: left;
 }
 
-.comments-list .media{
+.comments-list .comments-field{
   border-bottom: 1px dotted #ccc;
+}
+
+.comments {
+  max-height: 500px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }

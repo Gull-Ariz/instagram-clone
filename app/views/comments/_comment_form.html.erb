@@ -1,0 +1,12 @@
+<%= form_for @comment, remote: true do |form| %>
+  <div class='form-group'>
+    <%= form.hidden_field :post_id, value: post.id%>
+    <label for='comment'>Your Comment</label>
+    <div class='d-flex'>
+      <%= form.text_field :content, placeholder: 'Add a comment...', class: 'text-muted form-control'%>
+      <div class='justify-content-end'>
+        <%= form.submit 'Post', class: 'text-primary btn btn-ligth'%>
+      </div>
+    </div>
+  </div>
+<% end %>

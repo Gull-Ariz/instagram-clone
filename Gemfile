@@ -17,6 +17,8 @@ gem "font-awesome-rails"
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
+#kaminari
+gem 'kaminari'
 #mini magic
 gem "mini_magick"
 #whenever

@@ -1,9 +1,16 @@
 class CommentsController < ApplicationController
+  before_action :set_comment, only: [:edit, :update, :destroy]
+
+  def new
+    @comment = Comment.new
+  end
 
   def create
-    @comment = Comment.new(comment_params)
-    @comment.user_id = current_user.id
+    @comment = current_user.comments.new(comment_params)
     if @comment.save
+      respond_to do |format|
+        format.js
+      end
       redirect_to authenticated_root_path
     else
       flash.alert = 'Error in commenting.'
@@ -12,11 +19,9 @@ class CommentsController < ApplicationController
   end
 
   def edit
-    @comment = Comment.find(params[:id])
   end
 
   def update
-    @comment = Comment.find(params[:id])
     if @comment.update(comment_params)
       redirect_to authenticated_root_path
     else
@@ -25,14 +30,23 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = Comment.find(params[:id])
-    @comment.destroy
-
-    redirect_to authenticated_root_path
+    if @comment.destroy
+      respond_to do |format|
+        format.js
+      end
+      redirect_to authenticated_root_path
+    else
+      flash.alert = 'Error in deleting comment.'
+      redirect_to authenticated_root_path
+    end
   end
 
   private
     def comment_params
       params.require(:comment).permit( :content, :post_id )
+    end
+
+    def set_comment
+      @comment = Comment.find(params[:id])
     end
 end
