@@ -2,3 +2,14 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+$(document).ready ->
+  $('#images-count').change ->
+    limit = 10 - $('#images-count').data('images-count')
+    files = $(this)[0].files
+    if files.length > limit
+      alert 'You can select max ' + limit + ' images.'
+      $('#images-count').val ''
+      false
+    else
+      true
+  return

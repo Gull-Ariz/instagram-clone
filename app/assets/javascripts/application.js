@@ -10,24 +10,9 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require rails-ujs
+//= require jquery3
+//= require jquery_ujs
 //= require activestorage
 //= require turbolinks
 //= require_tree .
-//= require jquery3
-//= require popper
 //= require bootstrap
-
-$(document).ready(function(){
-  $('#images-count').change(function(){
-    var limit = 10 - $('#images-count').data('images-count')
-      var files = $(this)[0].files;
-        if(files.length > limit){
-            alert("You can select max " + limit + " images.");
-            $('#images-count').val('');
-            return false;
-        }else{
-            return true;
-        }
-    });
-});
