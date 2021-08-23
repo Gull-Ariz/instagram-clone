@@ -7,12 +7,7 @@ class StoryPolicy < ApplicationPolicy
   end
 
   def index?
-    followers = User.all - current_user.followeds - [current_user]
-    if followers.include? user.id || story.user == user
-      return true
-    else
-      return false
-    end
+    veify_story_for_followers
   end
 
   def create?
@@ -24,12 +19,7 @@ class StoryPolicy < ApplicationPolicy
   end
 
   def show?
-    followers = User.all - current_user.followeds - [current_user]
-    if followers.include? user.id || story.user == user
-      return true
-    else
-      return false
-    end
+    veify_story_for_followers
   end
 
   def destroy?
@@ -41,4 +31,8 @@ class StoryPolicy < ApplicationPolicy
   def verify_user_story
     user.present? && user == story.user
   end
+
+  def veify_story_for_followers
+    followers = User.all - current_user.followeds - [current_user]
+    followers.include? user.id || story.user == user
 end
