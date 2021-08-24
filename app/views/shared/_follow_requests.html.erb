@@ -1,0 +1,9 @@
+<%@follow_requests = UserFollower.where(user_id: current_user.id, accepted: false)%>
+<% @follow_requests.each do |request| %>
+  <%= link_to User.find(request.user_id).user_name, class: "text-dark"%>
+  <%= form_tag(accept_request_path, method: :post) do %>
+    <%= hidden_field_tag :user_id, request.user_id %>
+    <%= request.user_id%>
+    <%= submit_tag "Accept", class: "btn btn-info"%>
+  <%end%>
+<%end%>

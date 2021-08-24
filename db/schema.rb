@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2021_08_16_144544) do
-=======
-ActiveRecord::Schema.define(version: 2021_08_11_081916) do
->>>>>>> Deleted all unnecessary migrations
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -69,6 +65,7 @@ ActiveRecord::Schema.define(version: 2021_08_11_081916) do
   end
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   create_table "user_followers", force: :cascade do |t|
     t.integer "user_id"
     t.integer "follower_id"
@@ -78,11 +75,21 @@ ActiveRecord::Schema.define(version: 2021_08_11_081916) do
 
 =======
 >>>>>>> Deleted all unnecessary migrations
+=======
+  create_table "stories", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_stories_on_user_id"
+  end
+
+>>>>>>> Added Follow Request Accept.
   create_table "user_followers", force: :cascade do |t|
     t.integer "user_id"
     t.integer "follower_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "accepted"
   end
 
   create_table "users", force: :cascade do |t|
@@ -107,4 +114,5 @@ ActiveRecord::Schema.define(version: 2021_08_11_081916) do
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
   add_foreign_key "posts", "users"
+  add_foreign_key "stories", "users"
 end
