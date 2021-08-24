@@ -7,7 +7,7 @@ class StoryPolicy < ApplicationPolicy
   end
 
   def index?
-    veify_story_for_followers
+    return true
   end
 
   def create?
@@ -19,7 +19,7 @@ class StoryPolicy < ApplicationPolicy
   end
 
   def show?
-    veify_story_for_followers
+    (user.followeds.pluck(:user_id) << user.id).include? story.user.id
   end
 
   def destroy?
@@ -31,8 +31,4 @@ class StoryPolicy < ApplicationPolicy
   def verify_user_story
     user.present? && user == story.user
   end
-
-  def veify_story_for_followers
-    followers = User.all - current_user.followeds - [current_user]
-    followers.include? user.id || story.user == user
 end

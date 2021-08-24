@@ -16,7 +16,7 @@ class PostPolicy < ApplicationPolicy
   end
 
   def show?
-    true
+    (user.followers.pluck(:user_id) << user.id).include? post.user.id
   end
 
   def update?

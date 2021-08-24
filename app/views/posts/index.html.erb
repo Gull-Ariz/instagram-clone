@@ -1,6 +1,7 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-8 mt-5">
+      <%= render 'shared/flashmessage' %>
       <%= render 'shared/stories' %><br />
       <% @posts.each do |post|%>
         <div class='insta-post'>

@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   before_action :can_authorize, only: [:show, :edit, :update, :destroy]
 
   def index
-    @posts = Post.where(user_id: current_user.followers.pluck(:follower_id) << current_user.id)
+    @posts = Post.where(user_id: current_user.followeds.pluck(:user_id) << current_user.id)
   end
 
   def new
@@ -33,7 +33,7 @@ class PostsController < ApplicationController
       redirect_to authenticated_root_path
     else
       flash.alert = 'Error in updating post'
-      redirect_to posts_path
+      render 'edit'
     end
   end
 
@@ -43,13 +43,13 @@ class PostsController < ApplicationController
     else
       flash.alert = 'Error in deleting.'
     end
-    redirect_to posts_path
+    redirect_to authenticated_root_path
   end
 
   def delete_image_attachment
     @image = @post.images.find(params[:image_id])
     @image.purge
-    redirect_back(fallback_location: posts_path)
+    redirect_back(fallback_location: edit_post_path)
   end
 
   private

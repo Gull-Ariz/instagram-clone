@@ -1,4 +1,4 @@
-<%@stories = Story.where(user_id: current_user.followers.map{|f| f['follower_id']} << current_user.id)%>
+<%@stories = Story.where(user_id: current_user.followeds.pluck(:user_id) << current_user.id)%>
 <small><%= link_to 'See all', stories_path, class:'top-margin'%></small>
 <div class='stories-block'>
   <% @stories.each do |story| %>

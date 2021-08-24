@@ -1,8 +1,15 @@
 <div class='container top-margin'>
-  <p>
-    <% if %>
+  <div class='insta-post'>
+    <div class='post-meta'>
+      <% if @post.user.profile_picture.attached? %>
+        <%= image_tag @post.user.profile_picture, class: 'profile-pic'%>
+      <% else %>
+        <%= image_tag 'default_dp.jpg', class: 'profile-pic'%>
+      <%end%>
+      <%= link_to @post.user.user_name, user_path(@post.user.id), class:'profile-path'%>
+    </div>
     <%= @post.description %>
-  </p>
+  </div>
   <div class='cards'>
     <% @post.images.each do |image|%>
       <div class='card'>
@@ -11,3 +18,4 @@
     <%end%>
   </div>
 </div>
+

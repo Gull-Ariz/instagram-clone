@@ -5,7 +5,7 @@ class StoriesController < ApplicationController
 
 
   def index
-    @stories = Story.all
+    @stories = Story.where(user_id: current_user.followeds.pluck(:follower_id) << current_user.id)
     authorize @stories
   end
 

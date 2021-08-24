@@ -13,3 +13,8 @@ $(document).ready ->
     else
       true
   return
+
+setTimeout (->
+  $('#flashmessage').fadeOut 'fast'
+  return
+), 3000
