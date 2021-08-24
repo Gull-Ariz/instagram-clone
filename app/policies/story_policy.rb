@@ -7,7 +7,7 @@ class StoryPolicy < ApplicationPolicy
   end
 
   def index?
-    true
+    return true
   end
 
   def create?
@@ -19,7 +19,7 @@ class StoryPolicy < ApplicationPolicy
   end
 
   def show?
-    return true
+    (user.followeds.pluck(:user_id) << user.id).include? story.user.id
   end
 
   def destroy?
