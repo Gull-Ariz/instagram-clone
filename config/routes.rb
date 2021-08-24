@@ -15,6 +15,8 @@ Rails.application.routes.draw do
           post :unfollow
         end
       end
+      resources :comments, only: [:create, :edit, :update, :destroy]
+      resources :likes, only: [:create, :destroy]
     end
 
     unauthenticated do
