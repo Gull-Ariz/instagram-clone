@@ -1,7 +1,6 @@
-<%@stories = Story.where(user_id: current_user.followeds.pluck(:user_id) << current_user.id)%>
 <small><%= link_to 'See all', stories_path, class:'top-margin'%></small>
 <div class='stories-block'>
-  <% @stories.each do |story| %>
+  <% get_collection(Story).each do |story| %>
     <div class='col-md-1'>
     <%= link_to story_path(story.id) do %>
       <% if story.user.profile_picture.attached? %>
