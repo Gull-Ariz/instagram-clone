@@ -1,4 +1,4 @@
-<%@follower_suggestions = User.where.not(id: current_user.followeds.map{ |f| f['user_id'] } << current_user.id)%>
+<%@follower_suggestions = User.where.not(id: current_user.followeds.pluck(:user_id) << current_user.id)%>
 <% @follower_suggestions.each do |user| %>
   <div class='recommended-follower'>
     <div class='row'>

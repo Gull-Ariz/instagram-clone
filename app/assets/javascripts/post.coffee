@@ -9,9 +9,6 @@ $(document).ready ->
     if files.length > limit
       alert 'You can select max ' + limit + ' images.'
       $('#images-count').val ''
-      false
-    else
-      true
   return
 
 setTimeout (->
