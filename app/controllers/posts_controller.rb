@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   before_action :can_authorize, only: %i[show edit update destroy]
 
   def index
-    @posts = Post.where(user_id: current_user.followeds.pluck(:user_id) << current_user.id)
+    @posts = Post.where(user_id: current_user.followeds.pluck(:user_id) << current_user.id).page(params[:page]).per(2)
   end
 
   def new
