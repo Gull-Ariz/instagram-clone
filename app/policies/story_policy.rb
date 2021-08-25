@@ -6,7 +6,7 @@ class StoryPolicy < ApplicationPolicy
   end
 
   def create?
-    user.present?
+    @user.present?
   end
 
   def update?
@@ -14,7 +14,7 @@ class StoryPolicy < ApplicationPolicy
   end
 
   def show?
-    (user.followeds.pluck(:user_id) << user.id).include? story.user.id
+    (@user.followeds.pluck(:user_id) << @user.id).include? @record.user.id
   end
 
   def destroy?
@@ -24,6 +24,6 @@ class StoryPolicy < ApplicationPolicy
   private
 
   def verify_user_story
-    user.present? && user == story.user
+    @user.present? && user == @record.user
   end
 end

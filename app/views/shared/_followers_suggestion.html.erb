@@ -5,7 +5,7 @@
         <%= render 'shared/profile_picture', profile_picture: user.profile_picture%>
       </div>
       <div class='col-sm-9 col-lg-10'>
-        <%= link_to user.user_name, user_path(current_user.id), class:'profile-path'%>
+        <%= link_to user.user_name, user_path(user.id), class:'profile-path'%>
         <div class='float-end'>
           <% if current_user.id != user.id%>
             <% if ((current_user.followeds.find_by user_id: user.id).eql? nil)%>

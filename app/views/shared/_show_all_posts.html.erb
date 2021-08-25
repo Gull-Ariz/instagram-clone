@@ -1,5 +1,5 @@
 <% posts.each do |post|%>
-  <div class='mt-5'>
+  <div class='mt-5 bg-white'>
     <div class='post-meta'>
       <%= render 'shared/profile_picture', profile_picture: post.user.profile_picture%>
       <%= link_to post.user.user_name, user_path(post.user.id), class:'profile-path'%>

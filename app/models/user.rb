@@ -3,6 +3,8 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  after_create :welcome_email
+
   include ActiveModel::Validations
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -17,6 +19,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   validates :user_name, presence: true, format: { with: /\A^[A-Za-z][a-zA-Z0-9]+\z/ }, length: { maximum: 100 }
-  validates :password, presence: true
+  validates :password, presence: true, on: :create
   validates :email, presence: true
+
+  def welcome_email
+    UserMailer.welcome_email(self).deliver!
+  end
 end
