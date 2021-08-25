@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -35,8 +37,6 @@ Rails.application.configure do
   # Use Cloudinary.
   config.active_storage.service = :cloudinary
 
-  config.active_storage.service = :test
-
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
@@ -60,7 +60,6 @@ Rails.application.configure do
   config.assets.quiet = true
 
   config.assets.check_precompiled_asset = false
-
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true

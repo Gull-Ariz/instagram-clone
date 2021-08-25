@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Comment < ApplicationRecord
   include ActiveModel::Validations
   belongs_to :post

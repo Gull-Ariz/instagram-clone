@@ -3,71 +3,21 @@
     <div class="col-md-8 mt-5">
       <%= render 'shared/flashmessage' %>
       <%= render 'shared/stories' %><br />
-      <% @posts.each do |post|%>
-        <div class='mt-5'>
-          <div class='post-meta'>
-            <% if post.user.profile_picture.attached? %>
-              <%= image_tag post.user.profile_picture, class: 'profile-pic'%>
-            <% else %>
-              <%= image_tag 'default_dp.jpg', class: 'profile-pic'%>
-            <%end%>
-            <%= link_to post.user.user_name, user_path(post.user.id), class:'profile-path'%>
-          </div>
-          <% if policy(post).update? && policy(post).destroy?%>
-            <%= link_to edit_post_path(post.id), class: 'p-2' do %>
-              <%= fa_icon 'edit 2x muted'%>
-            <%end%>
-            <%= link_to  post_path(post.id), class: 'p-2', method: :delete, data: { confirm: 'Are you sure?' } do %>
-              <%= fa_icon 'trash 2x muted'%>
-            <%end%>
-          <%end%>
-          <div class='post-details'>
-            <%= link_to post.description, post_path(post), class:'profile-path'%>
-          </div>
-          <% if !post.images.nil? %>
-            <div id='carouselExampleSlidesOnly' class='carousel slide' data-bs-ride='carousel'>
-              <div class='carousel-inner'>
-                <% post.images.each_with_index do |image, i|%>
-                  <div class='carousel-item <%= 'active ' if i == 0 %> '>
-                    <%= cl_image_tag(image.key, class:'post-image') %>
-                  </div>
-                <%end%>
-              </div>
-              <button class='carousel-control-prev' type='button' data-bs-target='#carouselExampleControls' data-bs-slide='prev'>
-                <span class='carousel-control-prev-icon' aria-hidden='true'></span>
-                <span class='visually-hidden'>Previous</span>
-              </button>
-              <button class='carousel-control-next' type='button' data-bs-target='#carouselExampleControls' data-bs-slide='next'>
-                <span class='carousel-control-next-icon' aria-hidden='true'></span>
-                <span class='visually-hidden'>Next</span>
-              </button>
-            </div>
-          <%end%>
-          <p class='text-muted'><%= time_ago_in_words post.created_at %> ago</p>
-          <%= render 'likes/post_likes', post: post%>
-          <div class='comment-form'>
-            <%= render 'comments/comment_form', post: post%>
-          </div>
-          <div id='post-comments' class='comments'>
-            <%= render 'posts/show_comments', post: post %>
-          </div>
-        </div>
-      <%end%>
+      <%= render 'shared/show_all_posts', posts: @posts%>
     </div>
     <div class="col-md-4">
       <div class='account-summary'>
-        <% if current_user.profile_picture.attached? %>
-          <%= image_tag current_user.profile_picture, class: 'profile-pic'%>
-        <% else %>
-          <%= image_tag 'default_dp.jpg', class: 'profile-pic'%>
-        <%end%>
+        <%= render 'shared/profile_picture', profile_picture: current_user.profile_picture%>
         <%= link_to current_user.user_name, user_path(current_user.id), class:'profile-path'%>
       </div>
       <div id='follower-suggestions' class='follower-suggestions' >
         <p class='text-muted'>Suggestionsfor you</p>
         <%= render 'shared/followers_suggestion' %>
       </div>
-      <%= render 'shared/follow_requests'%>
+      <div id='follows-requests' class='follower-suggestions'>
+        <p class='text-muted'>Follow requests</p>
+        <%= render 'shared/follow_requests'%>
+      </div>
     </div>
   </div>
 </div>

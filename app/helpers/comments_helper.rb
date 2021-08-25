@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 module CommentsHelper
   def create_comment
-    comment = Comment.new
+    Comment.new
   end
 end

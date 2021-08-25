@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_16_144544) do
+ActiveRecord::Schema.define(version: 2021_08_23_185935) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -64,18 +64,6 @@ ActiveRecord::Schema.define(version: 2021_08_16_144544) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-  create_table "user_followers", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "follower_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-=======
->>>>>>> Deleted all unnecessary migrations
-=======
   create_table "stories", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -83,7 +71,6 @@ ActiveRecord::Schema.define(version: 2021_08_16_144544) do
     t.index ["user_id"], name: "index_stories_on_user_id"
   end
 
->>>>>>> Added Follow Request Accept.
   create_table "user_followers", force: :cascade do |t|
     t.integer "user_id"
     t.integer "follower_id"

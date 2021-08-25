@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class PostPolicy < ApplicationPolicy
+class CommentPolicy < ApplicationPolicy
   def index?
     true
   end
@@ -10,20 +10,20 @@ class PostPolicy < ApplicationPolicy
   end
 
   def show?
-    (@user.followers.pluck(:user_id) << @user.id).include? @record.user.id
+    @user.present?
   end
 
   def update?
-    verify_user_post
+    verify_comment_user
   end
 
   def destroy?
-    verify_user_post
+    verify_comment_user
   end
 
   private
 
-  def verify_user_post
+  def verify_comment_user
     @user.present? && @user == @record.user
   end
 end

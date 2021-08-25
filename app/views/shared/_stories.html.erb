@@ -3,11 +3,7 @@
   <% stories.each do |story| %>
     <div class='col-md-1'>
     <%= link_to story_path(story.id) do %>
-      <% if story.user.profile_picture.attached? %>
-        <%= image_tag story.user.profile_picture, class: 'profile-pic' %>
-      <% else %>
-        <%= image_tag 'default_dp.jpg', class: 'profile-pic'%>
-      <%end%>
+      <%= render 'shared/profile_picture', profile_picture: story.user.profile_picture %>
     <%end%>
       <%= link_to story.user.user_name, story_path(story.id), class:'profile-path'%>
     </div>

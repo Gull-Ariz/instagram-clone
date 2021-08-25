@@ -1,11 +1,7 @@
 <div class="container top-margin">
   <h2>All Stories</h2>
   <% @stories.each do |story|%>
-    <% if story.user.profile_picture.attached? %>
-      <%= image_tag story.user.profile_picture, class: 'profile-pic'%>
-    <% else %>
-      <%= image_tag 'default_dp.jpg', width: '50px', height: '50px', class: 'profile-pic'%>
-    <%end%>
+    <%= render 'shared/profile_picture', profile_picture: story.user.profile_picture %>
     <%= link_to story.user.user_name, user_path(story.user.id), class:'profile-path'%>
     <div id='carouselExampleSlidesOnly' class='carousel slide' data-bs-ride='carousel'>
       <div class='carousel-inner'>
@@ -25,4 +21,4 @@
       </button>
     </div>
   <%end%>
-
+</div>

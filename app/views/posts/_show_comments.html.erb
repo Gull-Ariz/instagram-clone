@@ -1,20 +1,26 @@
 <div class='page-header'>
-  <small class='pull-right'><%= post.comments.count %> comments</small>
+  <small class='m-1'><%= post.comments.count %> comments</small>
 </div>
 <div class='comments-list'>
   <% post.comments.each do |comment|%>
     <div class='comments-field'>
       <div class='d-flex justify-content-start'>
-        <%= render 'shared/profile_picture', profile_picture: comment.user.profile_picture%>
-        <h5 class='font-weight-bold m-2'><%= comment.user.user_name%></h5>
+        <h5 class='font-weight-bold mt-2'><%= comment.user.user_name%></h5>
       </div>
       <%= comment.content %>
-      <% if post.user_id == current_user.id%>
-        <button ><%= link_to 'Edit',edit_comment_path(comment), remote: true%></button>
-        <button ><%= link_to 'Delete', comment_path(comment), remote: true,
-          method: :delete,
-          data: { confirm: 'Are you sure?' } %>
-        </button>
+      <% if policy(post).update?%>
+        <div class='pull-right'>
+          <%= link_to edit_comment_path(comment), class: 'm-2' do%>
+            <%= fa_icon 'edit muted'%>
+          <%end%>
+          <%= link_to comment_path(comment), remote: true, method: :delete, data: { confirm: 'Are you sure?' } do %>
+            <%= fa_icon 'trash muted'%>
+          <%end%>
+        </div>
+      <% elsif post.id == current_user.id %>
+        <%= link_to comment_path(comment), remote: true, method: :delete, data: { confirm: 'Are you sure?' } do %>
+            <%= fa_icon 'trash muted'%>
+        <%end%>
       <% end %>
     </div>
   <% end %>

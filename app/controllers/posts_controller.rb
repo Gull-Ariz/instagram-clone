@@ -1,7 +1,8 @@
-class PostsController < ApplicationController
+# frozen_string_literal: true
 
-  before_action :set_post, only: [:show, :edit, :update, :destroy, :delete_image_attachment]
-  before_action :can_authorize, only: [:show, :edit, :update, :destroy]
+class PostsController < ApplicationController
+  before_action :set_post, only: %i[show edit update destroy delete_image_attachment]
+  before_action :can_authorize, only: %i[show edit update destroy]
 
   def index
     @posts = Post.where(user_id: current_user.followeds.pluck(:user_id) << current_user.id)
@@ -21,11 +22,10 @@ class PostsController < ApplicationController
       render 'new'
     end
   end
-  def show
-  end
 
-  def edit
-  end
+  def show; end
+
+  def edit; end
 
   def update
     if @post.update(post_params)
@@ -38,11 +38,11 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    if @post.destroy
-      flash.alert = 'Post deleted successfully.'
-    else
-      flash.alert = 'Error in deleting.'
-    end
+    flash.alert = if @post.destroy
+                    'Post deleted successfully.'
+                  else
+                    'Error in deleting.'
+                  end
     redirect_to authenticated_root_path
   end
 
@@ -52,49 +52,17 @@ class PostsController < ApplicationController
     redirect_back(fallback_location: edit_post_path)
   end
 
-  def edit
-    @post = Post.find(params[:id])
-  end
-
-  def update
-    @post = Post.find(params[:id])
-    post_obj_check_images = Post.new(post_params)
-    if @post.images.length + post_obj_check_images.images.length <= 10
-      if @post.update(post_params)
-        redirect_to @post
-      else
-        render 'edit'
-      end
-    else
-      @post.errors.add(:base, "Post cannot contain more than 10 images")
-      render 'edit'
-    end
-  end
-  def destroy
-    @post = Post.find(params[:id])
-    @post.destroy
-
-    redirect_to posts_path
-  end
-
-  def delete_image_attachment
-    @image = ActiveStorage::Attachment.find(params[:id])
-    @image.purge
-    redirect_back(fallback_location: posts_path)
-  end
-
   private
 
-    def set_post
-      @post = Post.find(params[:id])
-    end
+  def set_post
+    @post = Post.find(params[:id])
+  end
 
-    def can_authorize
-      authorize @post
-    end
+  def can_authorize
+    authorize @post
+  end
 
-    def post_params
-      params.require(:post).permit(:description, images: [])
-    end
-
+  def post_params
+    params.require(:post).permit(:description, images: [])
+  end
 end

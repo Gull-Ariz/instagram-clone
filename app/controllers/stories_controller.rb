@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 class StoriesController < ApplicationController
-
-  before_action :set_story, only: [:show, :destroy]
-  before_action :can_authorize, only: [:show, :destroy]
-
+  before_action :set_story, only: %i[show destroy]
+  before_action :can_authorize, only: %i[show destroy]
 
   def index
-    @stories = Story.where(user_id: current_user.followeds.pluck(:follower_id) << current_user.id)
+    @stories = Story.where(user_id: current_user.followeds.pluck(:user_id) << current_user.id)
     authorize @stories
   end
 
@@ -24,8 +24,7 @@ class StoriesController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
   def destroy
     @story.destroy
@@ -45,5 +44,4 @@ class StoriesController < ApplicationController
   def story_params
     params.require(:story).permit(images: [])
   end
-
 end

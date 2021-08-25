@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class PostControllerTest < ActionDispatch::IntegrationTest
@@ -5,5 +7,4 @@ class PostControllerTest < ActionDispatch::IntegrationTest
     get post_index_url
     assert_response :success
   end
-
 end

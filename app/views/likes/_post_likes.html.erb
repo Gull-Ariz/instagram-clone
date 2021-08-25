@@ -1,4 +1,4 @@
-<div id='like-or-unlike'>
+<div>
   <% if post.likes.find_by(user_id: current_user.id).nil? %>
     <%= form_for @like = create_like, remote: :true do |form|%>
       <div class='form-group'>

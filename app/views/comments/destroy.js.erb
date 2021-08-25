@@ -1,1 +1,1 @@
-$('#post-comments').html("<%= j render 'shared/show_comments', comment.post%>");
+$('#comment-post-<%= @comment.post.id.to_s %>').html("<%= j(render partial: 'posts/show_comments', locals: { post: @comment.post }) %>");

@@ -1,8 +1,8 @@
 <div class='navigation'>
   <div class='logo'>
-    <a class='no-underline' href='#'>
-      logo here
-    </a>
+    <%= link_to authenticated_root_path do%>
+      <%= image_tag 'Instagram-Logo.png', class: 'logo-img' %>
+    <% end %>
   </div>
   <div class='navigation-search-container'>
     <i class='fa fa-search'></i>

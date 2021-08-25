@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 module LikesHelper
   def create_like
-    like = Like.new
+    Like.new
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LikesController < ApplicationController
   before_action :set_like, only: [:destroy]
 
@@ -7,10 +9,6 @@ class LikesController < ApplicationController
       respond_to do |format|
         format.js
       end
-      redirect_to authenticated_root_path
-    else
-      flash.alert = 'Error in like a post.'
-      redirect_to authenticated_root_path
     end
   end
 
@@ -19,19 +17,16 @@ class LikesController < ApplicationController
       respond_to do |format|
         format.js
       end
-      redirect_to authenticated_root_path
-    else
-      flash.alert = 'Error in disliking.'
-      redirect_to authenticated_root_path
     end
   end
 
   private
-    def like_params
-      params.require(:like).permit( :post_id )
-    end
 
-    def set_like
-      @like = Like.find(params[:id])
-    end
+  def like_params
+    params.require(:like).permit(:post_id)
+  end
+
+  def set_like
+    @like = Like.find(params[:id])
+  end
 end

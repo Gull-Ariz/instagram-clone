@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   devise_for :users
   devise_scope :user do
@@ -8,15 +10,16 @@ Rails.application.routes.draw do
           delete :delete_image_attachment
         end
       end
-      resources :stories, only: [:index, :new, :create, :show, :destroy]
+      resources :stories, only: %i[index new create show destroy]
       resources :users, only: [:show] do
         member do
           post :follow
           post :unfollow
+          post :accept_request
         end
       end
-      resources :comments, only: [:create, :edit, :update, :destroy]
-      resources :likes, only: [:create, :destroy]
+      resources :comments, only: %i[create edit update destroy]
+      resources :likes, only: %i[create destroy]
     end
 
     unauthenticated do
