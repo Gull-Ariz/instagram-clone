@@ -2,12 +2,12 @@
   <div class='row'>
     <div class='col-4'>
       <% if @user.profile_picture.attached? %>
-        <%= image_tag @user.profile_picture, class: 'profile-pic'%>
+        <%= image_tag @user.profile_picture, class: 'profile-picture'%>
       <% else %>
-        <%= image_tag 'default_dp.jpg', class: 'profile-pic'%>
+        <%= image_tag 'default_dp.jpg', class: 'profile-picture'%>
       <%end%>
     </div>
-    <div class='col-8 text-left'>
+    <div class='col-8 text-left mt-5'>
       <h1><%= @user.user_name%></h1>
       <%if @user.id == current_user.id %>
         <%= link_to 'Edit Profile', edit_user_registration_path, class:'btn btn-secondary profile-path'%>
@@ -16,23 +16,23 @@
         <%= @user.posts.count %> posts
       </div>
       <div class='profile-stats'>
-        <%= @user.followers.count %> followers
+        <a href='<%= followers_user_path(current_user)%>' class='text-reset'> <%= @user.followers.where(accepted: true).count %> followers</a>
       </div>
       <div class='profile-stats'>
-        <%= @user.followeds.count %> following
+        <a href='<%= followeds_user_path(current_user)%>' class='text-reset'> <%= @user.followeds.where(accepted: true).count %> following</a>
       </div>
       <br /><%= @user.bio%>
     </div>
   </div>
   <div class='row'>
-    <% @user.posts.each do |post| %>
-      <div class='col-12'>
-        <div class='d-flex flex-row justify-content-center'>
+    <div class='col-md-12'>
+      <% @user.posts.each do |post| %>
+        <div class='d-flex flex-row justify-content-start'>
           <% post.images.each do |image|%>
-            <%= image_tag image, width: '400px', height: '400px', class: 'mt-5 p-5'%>
+            <a href='<%= post_path(post)%>'><%= image_tag image, class: 'mx-auto p-5 img-stack'%></a>
           <%end%>
         </div>
-      </div>
-    <%end%>
+      <%end%>
+    </div>
   </div>
 </div>

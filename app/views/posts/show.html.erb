@@ -1,7 +1,7 @@
-<div class='container mt-5'>
+<div class='container mt-5 mb-5'>
   <div class='d-flex justify-content-start m-2'>
     <%= render 'shared/profile_picture', profile_picture: @post.user.profile_picture%>
-    <p><%= @post.user.user_name%></p><br/>
+    <h5 class='ms-2 mt-2'><%= @post.user.user_name%></h5><br/>
   </div>
   <% if policy(@post).update? && policy(@post).destroy?%>
     <%= link_to edit_post_path(@post.id), class: 'p-2' do %>
@@ -18,7 +18,7 @@
       <% @post.images.each_with_index do |image, i|%>
         <div class='carousel-item <%= 'active ' if i == 0 %> '>
           <div class='imageContainer'>
-            <%= image_tag(image, class: 'd-block w-100')%>
+            <%= image_tag(image, class:'post-image')%>
           </div>
         </div>
         <%end%>
@@ -32,13 +32,13 @@
       <span class='visually-hidden'>Next</span>
     </button>
   </div>
-  <div id='like-or-unlike-<%= @post.id.to_s %>'>
+  <div id='like-or-unlike-<%= @post.id.to_s %>' >
     <%= render 'likes/post_likes', post: @post%>
   </div>
-  <div id="comment-form-post-<%= @post.id.to_s %>" class='comment-form'>
+  <div id="comment-form-post-<%= @post.id.to_s %>" class='col-8 comment-form'>
     <%= render 'comments/comment_form', post: @post%>
   </div>
-  <div id="comment-post-<%= @post.id.to_s %>" class='comments'>
+  <div id="comment-post-<%= @post.id.to_s %>" class='col-8 comments'>
     <%= render 'posts/show_comments', post: @post %>
   </div>
 </div>

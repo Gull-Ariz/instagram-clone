@@ -10,7 +10,7 @@ class PostPolicy < ApplicationPolicy
   end
 
   def show?
-    (@user.followers.pluck(:user_id) << @user.id).include? @record.user.id
+    (@user.followeds.where(accepted: true).pluck(:user_id) << @user.id).include? @record.user.id
   end
 
   def update?

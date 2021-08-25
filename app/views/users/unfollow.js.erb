@@ -1,2 +1,1 @@
-<% @follower_suggestions = User.all - current_user.followeds - [current_user] %>
-$('#follower-suggestions').html("<%= j render 'shared/followers_suggestion', collection: @follower_suggestions%>");
+$('#followeds').html("<%= j render 'users/following', collection: followeds%>");

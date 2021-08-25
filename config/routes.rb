@@ -16,6 +16,8 @@ Rails.application.routes.draw do
           post :follow
           post :unfollow
           post :accept_request
+          get :followers
+          get :followeds
         end
       end
       resources :comments, only: %i[create edit update destroy]
