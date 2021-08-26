@@ -10,8 +10,8 @@ gem 'rails', '~> 5.2.6'
 # sidekiq
 gem 'sidekiq'
 gem 'sidekiq-cron'
-#figaro
-gem "figaro"
+# figaro
+gem 'figaro'
 # pg_search
 gem 'pg_search'
 # cloudinary
