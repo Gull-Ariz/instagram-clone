@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-  rescue_from ActiveRecord::RecordNotFound, with: :handle_not_found_exp
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
   protected
 
@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
     redirect_to authenticated_root_path
   end
 
-  def handle_not_found_exp
+  def not_found
     flash[:alert] = 'Not Exits.'
     redirect_to authenticated_root_path
   end

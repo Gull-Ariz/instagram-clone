@@ -5,15 +5,17 @@ class PostsController < ApplicationController
   before_action :can_authorize, only: %i[show edit update destroy]
 
   def index
-    @posts = Post.where(user_id: current_user.followeds.where(accepted: true).pluck(:user_id) << current_user.id).page(params[:page]).per(6)
+    @posts = posts.page(params[:page]).per(6)
   end
 
   def new
     @post = Post.new
+    authorize @post
   end
 
   def create
     @post = current_user.posts.new(post_params)
+    authorize @post
     if @post.save
       flash.alert = 'Post created successfully.'
       redirect_to authenticated_root_path
@@ -48,8 +50,11 @@ class PostsController < ApplicationController
 
   def delete_image_attachment
     @image = @post.images.find(params[:image_id])
-    @image.purge
-    redirect_back(fallback_location: edit_post_path)
+    if @image.purge
+      redirect_back(fallback_location: edit_post_path)
+    else
+      redirect_back(fallback_location: edit_post_path)
+    end
   end
 
   private
@@ -64,5 +69,9 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:description, images: [])
+  end
+
+  def posts
+    Post.where(user_id: current_user.followeds.where(accepted: true).pluck(:user_id) << current_user.id)
   end
 end

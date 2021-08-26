@@ -27,4 +27,8 @@ class User < ApplicationRecord
   def welcome_email
     UserMailer.welcome_email(self).deliver!
   end
+
+  def accepted_followeds
+    self.followeds.where(accepted: true)
+  end
 end

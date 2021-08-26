@@ -4,6 +4,7 @@
 
 $(document).ready ->
   $('#images-count').change ->
+    debugger
     limit = 10 - $('#images-count').data('images-count')
     files = $(this)[0].files
     if files.length > limit

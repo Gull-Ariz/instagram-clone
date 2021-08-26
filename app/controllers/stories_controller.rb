@@ -5,16 +5,17 @@ class StoriesController < ApplicationController
   before_action :can_authorize, only: %i[show destroy]
 
   def index
-    @stories = Story.where(user_id: current_user.followeds.where(accepted: true).pluck(:user_id) << current_user.id).page(params[:page]).per(1)
-    authorize @stories
+    @stories = stories.page(params[:page]).per(1)
   end
 
   def new
     @story = Story.new
+    authorize @story
   end
 
   def create
     @story = current_user.stories.new(story_params)
+    authorize @story
     if @story.save
       flash.alert = 'Story created successfully.'
       redirect_to authenticated_root_path
@@ -27,8 +28,12 @@ class StoriesController < ApplicationController
   def show; end
 
   def destroy
-    @story.destroy
-    redirect_to stories_path
+    if @story.destroy
+      flash.alert = 'Story deleted.'
+    else
+      flash.alert = 'Unable to delete story.'
+    end
+    redirect_to authenticated_root_path
   end
 
   private
@@ -43,5 +48,9 @@ class StoriesController < ApplicationController
 
   def story_params
     params.require(:story).permit(images: [])
+  end
+
+  def stories
+    Story.where(user_id: current_user.followeds.where(accepted: true).pluck(:user_id) << current_user.id)
   end
 end
