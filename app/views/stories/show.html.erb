@@ -2,8 +2,6 @@
   <div class='mt-5 d-flex justify-content-center'>
     <% if @story.user.profile_picture.attached? %>
       <%= image_tag @story.user.profile_picture, width: '100px', height: '100px' %>
-    <% else %>
-      <%= image_tag 'default_dp.jpg', width: '100px', height: '100px' %>
     <%end%>
   </div>
   <div class='d-flex justify-content-center'>
