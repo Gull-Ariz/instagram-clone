@@ -21,9 +21,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def index
+    @users = User.search(params[:term])
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def unfollow
     if current_user.followeds.find_by(user_id: params[:id]).destroy
-      current_user.followers.find_by(user_id: params[:id]).destroy
+      current_user.followers.find_by(follower_id: params[:id]).destroy
       respond_to do |format|
         format.html { redirect_to authenticated_root_path }
         format.js
@@ -43,11 +50,9 @@ class UsersController < ApplicationController
     end
   end
 
-  def followers
-  end
+  def followers; end
 
-  def followeds
-  end
+  def followeds; end
 
   private
 

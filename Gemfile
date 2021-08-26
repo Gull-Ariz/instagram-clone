@@ -7,8 +7,13 @@ ruby '2.7.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.6'
+# sidekiq
 gem 'sidekiq'
 gem 'sidekiq-cron'
+#figaro
+gem "figaro"
+# pg_search
+gem 'pg_search'
 # cloudinary
 gem 'cloudinary'
 # pundit

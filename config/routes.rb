@@ -11,7 +11,7 @@ Rails.application.routes.draw do
         end
       end
       resources :stories, only: %i[index new create show destroy]
-      resources :users, only: [:show] do
+      resources :users, only: %i[index show] do
         member do
           post :follow
           post :unfollow

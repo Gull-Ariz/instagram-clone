@@ -5,15 +5,10 @@
     <% end %>
   </div>
   <div class='navigation-search-container'>
-    <i class='fa fa-search'></i>
-    <input class='search-field' type='text' placeholder='Search'>
-    <div class='search-container'>
-      <div class='search-container-box'>
-        <div class='search-results'>
-
-        </div>
-      </div>
-    </div>
+    <%= form_tag users_path, method: :get, class: "form-inline my-2 my-lg-0 ml-md-auto", id: "users-search", remote: true do %>
+      <%= text_field_tag :term, params[:term], class: "form-control mr-sm-2 text-center common-btn", placeholder: "Search", autocomplete: "off" %>
+      <div id="users-result"></div>
+    <% end %>
   </div>
   <div class='navigation-icons'>
     <div class='navigation-link'>

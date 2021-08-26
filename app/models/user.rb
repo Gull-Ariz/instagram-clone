@@ -3,9 +3,11 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  include PgSearch::Model
   after_create :welcome_email
-
   include ActiveModel::Validations
+
+  pg_search_scope :search, against: :user_name, using: { trigram: { word_similarity: true, threshold: 0.1 } }
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy

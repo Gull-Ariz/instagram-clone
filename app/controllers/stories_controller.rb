@@ -5,7 +5,7 @@ class StoriesController < ApplicationController
   before_action :can_authorize, only: %i[show destroy]
 
   def index
-    @stories = Story.where(user_id: current_user.followeds.pluck(:user_id) << current_user.id)
+    @stories = Story.where(user_id: current_user.followeds.where(accepted: true).pluck(:user_id) << current_user.id).page(params[:page]).per(1)
     authorize @stories
   end
 
