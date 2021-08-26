@@ -3,8 +3,6 @@
     <div class='col-4'>
       <% if @user.profile_picture.attached? %>
         <%= image_tag @user.profile_picture, class: 'profile-picture'%>
-      <% else %>
-        <%= image_tag 'default_dp.jpg', class: 'profile-picture'%>
       <%end%>
     </div>
     <div class='col-8 text-left mt-5'>
