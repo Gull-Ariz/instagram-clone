@@ -28,7 +28,7 @@ Rails.application.configure do
 
     config.cache_store = :null_store
   end
-
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000}
   config.action_mailer.smtp_settings = {
     user_name: 'gull.ariz@devsinc.com',
     password: 'hyoqidmsfwabtnwb',
