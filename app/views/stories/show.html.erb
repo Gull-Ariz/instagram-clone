@@ -1,4 +1,5 @@
 <div class="container top-margin">
+  <%= render 'shared/flashmessage' %>
   <div class='mt-5 d-flex justify-content-center'>
     <% if @story.user.profile_picture.attached? %>
       <%= image_tag @story.user.profile_picture, width: '100px', height: '100px' %>

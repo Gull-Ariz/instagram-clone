@@ -1,16 +1,6 @@
 <div class='container top-margin'>
+  <%= render 'shared/flashmessage' %>
   <%= form_with model: @story, local: true do |form|%>
-    <% if @story.errors.any? %>
-      <h2>
-          <%= pluralize(@story.errors.count, "error") %> prohibited this story from being saved:
-        </h2>
-        <ul>
-          <% @story.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
-      </div>
-    <%end%>
     <div class='form-group'>
       <%= form.label :images%>
       <%= form.file_field :images, required: true, accept:'image/*', multiple: true, class:'form-control' %>

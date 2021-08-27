@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_23_185935) do
+ActiveRecord::Schema.define(version: 2021_08_27_185935) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 2021_08_23_185935) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.index ["created_at"], name: "index_stories_on_created_at"
     t.index ["user_id"], name: "index_stories_on_user_id"
   end
 

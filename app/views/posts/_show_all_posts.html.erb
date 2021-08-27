@@ -15,15 +15,25 @@
     <div class='post-details'>
       <%= link_to post.description, post_path(post), class:'profile-path'%>
     </div>
-    <% if !post.images.nil? %>
-      <% post.images.each_with_index do |image, i|%>
-        <div class="owl-carousel">
-          <div>
-            <%= cl_image_tag(image.key, class:'post-image') %>
+    <div id='carouselExampleSlidesOnly' class='carousel slide' data-bs-ride='carousel'>
+      <div class='carousel-inner'>
+        <% post.images.each_with_index do |image, i|%>
+          <div class='carousel-item <%= 'active ' if i == 0 %> '>
+            <div class='imageContainer'>
+              <%= image_tag(image, class:'post-image')%>
+            </div>
           </div>
-        </div>
-      <%end%>
-    <%end%>
+          <%end%>
+      </div>
+      <button class='carousel-control-prev' type='button' data-bs-target='#carouselExampleControls' data-bs-slide='prev'>
+        <span class='carousel-control-prev-icon' aria-hidden='true'></span>
+        <span class='visually-hidden'>Previous</span>
+      </button>
+      <button class='carousel-control-next' type='button' data-bs-target='#carouselExampleControls' data-bs-slide='next'>
+        <span class='carousel-control-next-icon' aria-hidden='true'></span>
+        <span class='visually-hidden'>Next</span>
+      </button>
+    </div>
     <p class='text-muted'><%= time_ago_in_words post.created_at %> ago</p>
     <div id='like-or-unlike-<%= post.id.to_s %>'>
       <%= render 'likes/post_likes', post: post%>

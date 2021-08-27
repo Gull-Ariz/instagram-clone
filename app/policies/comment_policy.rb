@@ -1,16 +1,13 @@
 # frozen_string_literal: true
 
 class CommentPolicy < ApplicationPolicy
-  def index?
-    true
-  end
 
   def create?
-    @user.present?
+    verify_comment_user
   end
 
   def show?
-    @user.present?
+    verify_comment_user
   end
 
   def update?
@@ -23,7 +20,8 @@ class CommentPolicy < ApplicationPolicy
 
   private
 
-  def verify_comment_user
-    @user.present? && @user == @record.user
+  def verify_comment_user?
+    (@user.id == @record.post.user_id) || (@record.post.user.followeds.where(follower_id: @user.id)).present?
   end
+
 end

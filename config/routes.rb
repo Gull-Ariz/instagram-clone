@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       root 'posts#index', as: :authenticated_root
       resources :posts do
         resources :likes, only: %i[create destroy], shallow: true
+        resources :comments, only: %i[create edit update destroy], shallow: true
         member do
           delete :delete_image_attachment
         end
@@ -21,7 +22,6 @@ Rails.application.routes.draw do
           get :followeds
         end
       end
-      resources :comments, only: %i[create edit update destroy]
     end
 
     unauthenticated do

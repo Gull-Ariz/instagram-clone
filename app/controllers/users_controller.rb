@@ -10,7 +10,6 @@ class UsersController < ApplicationController
     if user.account_type_private
       if current_user.followeds.create(user_id: params[:id], accepted: false)
         respond_to do |format|
-          format.html { redirect_to authenticated_root_path }
           format.js
         end
       end
@@ -31,21 +30,28 @@ class UsersController < ApplicationController
   def unfollow
     if current_user.followeds.find_by(user_id: params[:id]).destroy
       respond_to do |format|
-        format.html { redirect_to authenticated_root_path }
         format.js
       end
     else
-      flash[:danger] = 'Unable to unfollow'
+      flash.alert = 'Unable to unfollow'
+      format.js
     end
   end
 
   def accept_request
     request = UserFollower.find_by(user_id: params[:user_id])
-    if request.update(accepted: true)
-      current_user.followeds.create(user_id: params[:id], accepted: true)
-      respond_to do |format|
+    ActiveRecord::Base.transaction do
+      if request.update(accepted: true) && set_followeds
+        respond_to do |format|
+          format.js
+        end
+      else
+        flash.alert = 'Something went wrong.'
         format.js
       end
+    rescue ActiveRecord::Exception
+      flash.alert = 'Something went wrong.'
+      redirect_to (:back)
     end
   end
 
@@ -54,6 +60,10 @@ class UsersController < ApplicationController
   def followeds; end
 
   private
+
+  def set_followeds
+    current_user.followeds.create(user_id: params[:id], accepted: true)
+  end
 
   def set_user
     @user = User.find(params[:id])
