@@ -6,6 +6,7 @@ class Post < ApplicationRecord
   belongs_to :user
   has_many :likes, dependent: :destroy
   has_many_attached :images
+
   validates :description, presence: true, length: { maximum: 1000 }
   validate :number_of_images
 

@@ -23,7 +23,7 @@
 
     <div class='form-group'>
       <%= form.label :images%>
-      <%= form.file_field :images, multiple: true, accept:'image/*', id: 'images-count', class: 'form-control', data: { images_count: @post.images.count }%>
+      <%= form.file_field :images, multiple: true, accept:'image/png, image/gif, image/jpeg, image/jpg', id: 'images-count', class: 'form-control', data: { images_count: @post.images.count }%>
     </div>
     <div class='form-group'>
       <%= form.submit class: 'btn btn-success' %>
