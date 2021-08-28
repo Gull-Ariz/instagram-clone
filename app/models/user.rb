@@ -20,7 +20,6 @@ class User < ApplicationRecord
   validates :password, presence: true, on: :create
   validates_confirmation_of :password
   validates :email, presence: true
-  #validates :profile_picture, content_type: { in: ['image/png', 'image/gif', 'image/jpeg', 'image/jpg'], message: 'Upload image only.' }
   validates :bio, length: { maximum: 100}
 
   after_create :welcome_email

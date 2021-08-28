@@ -8,7 +8,7 @@
         <h5 class='font-weight-bold mt-2'><%= comment.user.user_name%></h5>
       </div>
       <%= comment.content %>
-      <% if policy(post).update?%>
+      <% if policy(comment).update?%>
         <div class='pull-right'>
           <%= link_to edit_comment_path(comment), class: 'm-2' do%>
             <%= fa_icon 'edit muted'%>
@@ -17,10 +17,7 @@
             <%= fa_icon 'trash muted'%>
           <%end%>
         </div>
-      <% elsif post.id == current_user.id %>
-        <%= link_to comment_path(comment), remote: true, method: :delete, data: { confirm: 'Are you sure?' } do %>
-            <%= fa_icon 'trash muted'%>
-        <%end%>
+
       <% end %>
     </div>
   <% end %>
