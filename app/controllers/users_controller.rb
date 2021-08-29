@@ -8,12 +8,12 @@ class UsersController < ApplicationController
   def follow
     user = User.find(params[:id])
     if user.account_type_private
-      if current_user.followeds.create(user_id: params[:id], accepted: false)
+      if current_user.followeds.create(followed_id: params[:id], accepted: false)
         respond_to do |format|
           format.js
         end
       end
-    elsif current_user.followeds.create(user_id: params[:id], accepted: true)
+    elsif current_user.followeds.create(followed_id: params[:id], accepted: true)
       respond_to do |format|
         format.js
       end
@@ -28,7 +28,7 @@ class UsersController < ApplicationController
   end
 
   def unfollow
-    if current_user.followeds.find_by(user_id: params[:id]).destroy
+    if current_user.followeds.find_by(followed_id: params[:id]).destroy
       respond_to do |format|
         format.js
       end
@@ -39,9 +39,9 @@ class UsersController < ApplicationController
   end
 
   def accept_request
-    request = UserFollower.find_by(user_id: params[:user_id])
+    request = UserFollower.find_by(follower_id: params[:follower_id])
     ActiveRecord::Base.transaction do
-      if request.update(accepted: true) && set_followeds
+      if request.update!(accepted: true) && set_followeds
         respond_to do |format|
           format.js
         end
@@ -51,7 +51,7 @@ class UsersController < ApplicationController
       end
     rescue ActiveRecord::Exception
       flash.alert = 'Something went wrong.'
-      redirect_to (:back)
+      redirect_to(:back)
     end
   end
 
@@ -62,7 +62,7 @@ class UsersController < ApplicationController
   private
 
   def set_followeds
-    current_user.followeds.create(user_id: params[:id], accepted: true)
+    current_user.followeds.create!(followed_id: params[:id], accepted: true)
   end
 
   def set_user

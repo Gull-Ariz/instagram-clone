@@ -28,11 +28,11 @@ class StoriesController < ApplicationController
   def show; end
 
   def destroy
-    if @story.destroy
-      flash.alert = 'Story deleted.'
-    else
-      flash.alert = 'Unable to delete story.'
-    end
+    flash.alert = if @story.destroy
+                    'Story deleted.'
+                  else
+                    'Unable to delete story.'
+                  end
     redirect_to authenticated_root_path
   end
 
@@ -51,6 +51,6 @@ class StoriesController < ApplicationController
   end
 
   def stories
-    Story.where(user_id: current_user.followeds.where(accepted: true).pluck(:user_id) << current_user.id)
+    stories = Story.where(user_id: current_user.accepted_followeds << current_user.id)
   end
 end

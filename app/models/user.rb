@@ -10,17 +10,20 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :stories, dependent: :destroy
   has_one_attached :profile_picture
-  has_many :followeds, class_name: 'UserFollower', foreign_key: 'follower_id'
-  has_many :followers, class_name: 'UserFollower'
+
+  has_many :followeds, class_name: 'UserFollower', foreign_key: 'follower_id', dependent: :destroy
+
+  has_many :followers, class_name: 'UserFollower', foreign_key: 'followed_id', dependent: :destroy
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  validates :user_name, presence: true, format: { with: /\A^[A-Za-z][a-zA-Z0-9]+\z/ }, length: { maximum: 100 }
+  validates :user_name, presence: true, length: { maximum: 100 }
   validates :password, presence: true, on: :create
-  validates_confirmation_of :password
+  validates :password, confirmation: true
   validates :email, presence: true
-  validates :bio, length: { maximum: 100}
+  validates :profile_picture, content_type: { in: ['image/png', 'image/gif', 'image/jpg', 'image/jpeg'], message: 'Upload Image only.' }
+  validates :bio, length: { maximum: 100 }
 
   after_create :welcome_email
 
@@ -31,6 +34,6 @@ class User < ApplicationRecord
   end
 
   def accepted_followeds
-    self.followeds.where(accepted: true)
+    followeds.where(accepted: true).pluck(:followed_id)
   end
 end

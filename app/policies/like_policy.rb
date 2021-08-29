@@ -1,17 +1,17 @@
-class LikePolicy < ApplicationPolicy
+# frozen_string_literal: true
 
+class LikePolicy < ApplicationPolicy
   def create?
-    verify_like_user?
+    can_like?
   end
 
   def destroy?
-    verify_like_user?
+    can_like?
   end
 
   private
 
-  def verify_like_user?
-    (@user.id == @record.post.user_id) || (@record.post.user.followeds.where(user_id: @user.id)).present?
+  def can_like?
+    (@user.id == @record.post.user_id) || @record.post.user.followers.where(follower_id: @user.id).present?
   end
-
 end

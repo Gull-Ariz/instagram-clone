@@ -8,9 +8,6 @@ Rails.application.routes.draw do
       resources :posts do
         resources :likes, only: %i[create destroy], shallow: true
         resources :comments, only: %i[create edit update destroy], shallow: true
-        member do
-          delete :delete_image_attachment
-        end
       end
       resources :stories, only: %i[index new create show destroy]
       resources :users, only: %i[index show] do

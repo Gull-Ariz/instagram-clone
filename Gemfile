@@ -13,6 +13,8 @@ gem 'figaro'
 gem 'pg_search'
 # cloudinary
 gem 'cloudinary'
+#active_storage_validations
+gem 'active_storage_validations'
 # pundit
 gem 'pundit'
 # font-awesome

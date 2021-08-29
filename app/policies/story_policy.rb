@@ -1,29 +1,17 @@
 # frozen_string_literal: true
 
 class StoryPolicy < ApplicationPolicy
-  def index?
-    true
-  end
 
   def create?
     @user.present?
   end
 
-  def update?
-    verify_user_post
-  end
-
   def show?
-    (@user.followeds.where(accepted: true).pluck(:user_id) << @user.id).include? @record.user.id
+    (@user.id == @record.user_id) || @record.user.followeds.where(followed_id: @user.id).present?
   end
 
   def destroy?
-    verify_user_story
-  end
-
-  private
-
-  def verify_user_story
     @user.present? && user == @record.user
   end
+
 end

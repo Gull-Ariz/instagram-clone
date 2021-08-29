@@ -2,6 +2,6 @@
 
 class AddFollowStatusToUserFollower < ActiveRecord::Migration[5.2]
   def change
-    add_column :user_followers, :accepted, :boolean
+    add_column :user_followers, :accepted, :boolean, null: false
   end
 end

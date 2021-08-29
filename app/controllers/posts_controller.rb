@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[show edit update destroy delete_image_attachment]
+  before_action :set_post, only: %i[show edit update destroy]
   before_action :can_authorize, only: %i[show edit update destroy]
 
   def index
-    @posts = posts.page(params[:page]).per(6)
+    @posts = posts.order('created_at DESC').page(params[:page]).per(6)
   end
 
   def new
@@ -27,15 +27,23 @@ class PostsController < ApplicationController
 
   def show; end
 
-  def edit; end
+  def edit
+    byebug
+  end
 
   def update
-    if @post.update(post_params)
-      flash.alert = 'Post updated successfully.'
-      redirect_to authenticated_root_path
+    @image = @post.images.where(id: params[:image_id])
+    if @image.present?
+      @post.images.find(params[:image_id]).purge
+      redirect_back(fallback_location: edit_post_path)
     else
-      flash.alert = 'Error in updating post'
-      render 'edit'
+      if @post.update(post_params)
+        flash.alert = 'Post updated successfully.'
+        redirect_to authenticated_root_path
+      else
+        flash.alert = 'Error in updating post'
+        render 'edit'
+      end
     end
   end
 
@@ -46,15 +54,6 @@ class PostsController < ApplicationController
                     'Error in deleting.'
                   end
     redirect_to authenticated_root_path
-  end
-
-  def delete_image_attachment
-    @image = @post.images.find(params[:image_id])
-    if @image.purge
-      redirect_back(fallback_location: edit_post_path)
-    else
-      redirect_back(fallback_location: edit_post_path)
-    end
   end
 
   private
@@ -72,6 +71,6 @@ class PostsController < ApplicationController
   end
 
   def posts
-    Post.where(user_id: current_user.followeds.where(accepted: true).pluck(:user_id) << current_user.id)
+    @posts = Post.includes([:comments, :likes]).where(user_id: current_user.accepted_followeds << current_user.id)
   end
 end

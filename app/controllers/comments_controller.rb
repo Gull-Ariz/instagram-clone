@@ -21,18 +21,21 @@ class CommentsController < ApplicationController
   end
 
   def edit
-    @post = Post.find_by(params[:post_id])
-    render 'edit'
+    @comment = Comment.find(params[:id])
+    respond_to do |format|
+      format.js
+    end
   end
 
   def update
     authorize @comment
     if @comment.update(comment_params)
-      flash.alert = 'Updated successfully.'
-      redirect_to authenticated_root_path
+      respond_to do |format|
+        format.js
+      end
     else
       flash.alert = 'Something Went Wrong.'
-      render 'edit'
+      format.js
     end
   end
 

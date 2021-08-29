@@ -1,3 +1,3 @@
 $('#comment-post-<%= @comment.post.id.to_s %>').html("<%= j(render partial: 'posts/show_comments', locals: { post: @comment.post }) %>");
-$('#show-<%=@comment.id.to_s%>').hide();
-$('#edit-<%=@comment.id.to_s%>').removeClass('d-none');
+$('#show-<%=@comment.id.to_s%>').show();
+$('#edit-<%=@comment.id.to_s%>').css('display','none');

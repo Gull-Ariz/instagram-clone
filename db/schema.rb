@@ -73,11 +73,13 @@ ActiveRecord::Schema.define(version: 2021_08_27_185935) do
   end
 
   create_table "user_followers", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "follower_id"
+    t.integer "follower_id", null: false
+    t.integer "followed_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "accepted"
+    t.boolean "accepted", null: false
+    t.index ["followed_id"], name: "index_user_followers_on_followed_id"
+    t.index ["follower_id"], name: "index_user_followers_on_follower_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -89,11 +91,10 @@ ActiveRecord::Schema.define(version: 2021_08_27_185935) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "bio"
-    t.boolean "account_type_private"
-    t.string "user_name"
+    t.string "user_name", null: false
+    t.boolean "account_type_private", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["user_name"], name: "index_users_on_user_name", opclass: :gin_trgm_ops, using: :gin
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

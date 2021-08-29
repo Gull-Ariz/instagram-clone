@@ -8,6 +8,7 @@ class Post < ApplicationRecord
   has_many_attached :images
 
   validates :description, presence: true, length: { maximum: 1000 }
+  validates :images, content_type: { in: ['image/png', 'image/gif', 'image/jpg', 'image/jpeg'], message: 'Upload Image only.' }
   validate :number_of_images
 
   private
