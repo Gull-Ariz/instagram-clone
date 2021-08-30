@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 2021_08_27_185935) do
     t.datetime "updated_at", null: false
     t.boolean "accepted", null: false
     t.index ["followed_id"], name: "index_user_followers_on_followed_id"
+    t.index ["follower_id", "followed_id"], name: "index_user_followers_on_follower_id_and_followed_id", unique: true
     t.index ["follower_id"], name: "index_user_followers_on_follower_id"
   end
 

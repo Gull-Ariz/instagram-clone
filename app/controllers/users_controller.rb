@@ -8,7 +8,9 @@ class UsersController < ApplicationController
   def follow
     user = User.find(params[:id])
     if user.account_type_private
+      byebug
       if current_user.followeds.create(followed_id: params[:followed_id], accepted: false)
+        byebug
         respond_to do |format|
           format.js
         end
@@ -41,7 +43,7 @@ class UsersController < ApplicationController
   def accept_request
     request = UserFollower.find_by(follower_id: params[:follower_id])
     ActiveRecord::Base.transaction do
-      if request.update!(accepted: true) && set_followeds
+      if request.update!(accepted: true)
         respond_to do |format|
           format.js
         end
@@ -60,10 +62,6 @@ class UsersController < ApplicationController
   def followeds; end
 
   private
-
-  def set_followeds
-    current_user.followeds.create!(followed_id: params[:follower_id], accepted: true)
-  end
 
   def set_user
     @user = User.find(params[:id])

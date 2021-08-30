@@ -8,7 +8,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-1.times do |index|
+10.times do |index|
   User.create!(email: "gullariz#{index}@gmail",
                user_name: "gullariz#{index}",
                password: 'gull123',
@@ -16,12 +16,3 @@
                account_type_private: false)
 end
 
-1.times do |index|
-  Post.create!(description: "this is description number#{index}",
-               images.attach(io: File.open('app/assets/images/default_dp.jpg'))
-end
-
-# 10.times do |_index|
-#   image_data = File.read('Instagram-Logo.png')
-#   Story.create!(images: image_data)
-# end
