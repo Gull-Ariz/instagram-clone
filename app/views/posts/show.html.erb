@@ -1,0 +1,10 @@
+<div class='container'>
+  <p>
+    <%= @post.description %>
+  </p>
+  <% (0...@post.images.count).each do |image|%>
+    <div class='img-thumbnail'>
+      <%= image_tag(@post.images[image])%>
+    </div>
+  <%end%>
+</div>
