@@ -1,0 +1,18 @@
+<% follow_suggestions.each do |user| %>
+  <div class='recommended-follower'>
+    <div class='row'>
+      <div class='col-sm-3 col-lg-2'>
+        <%= render 'shared/profile_picture', profile_picture: user.profile_picture%>
+      </div>
+      <div class='col-sm-9 col-lg-10'>
+        <%= link_to user.user_name, user_path(user.id), class:'profile-path'%>
+        <div class='float-end'>
+          <%= form_tag(follow_user_path(user.id), method: :post, id: 'follow_form', remote: true) do %>
+            <%= hidden_field_tag :followed_id, user.id %>
+            <%= submit_tag "Follow", class: "btn btn-info"%>
+          <%end%>
+        </div>
+      </div>
+    </div>
+  </div>
+<%end%>

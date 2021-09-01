@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <%= render 'shared/flashmessage' %>
+    <div class="col-md-8 mt-5 mb-3">
+      <% if stories.count > 0%>
+        <%= render 'stories' %><br />
+      <%end%>
+      <%= render 'show_all_posts', posts: @posts%>
+    </div>
+    <div class="col-md-4">
+      <div class='account-summary'>
+        <%= render 'shared/profile_picture', profile_picture: current_user.profile_picture%>
+        <%= link_to current_user.user_name, user_path(current_user.id), class:'profile-path'%>
+      </div>
+      <%if follow_suggestions.count > 0%>
+        <div id='follower-suggestions' class='follower-suggestions' >
+          <p class='text-muted'>Suggestionsfor you</p>
+          <%= render 'shared/followers_suggestion' %>
+        </div>
+      <%end%>
+      <% if follow_requests.count > 0 %>
+        <div id='follows-requests' class='follower-suggestions'>
+          <p class='text-muted'>Follow requests</p>
+          <%= render 'shared/follow_requests'%>
+        </div>
+      <%end%>
+    </div>
+  </div>
+</div>

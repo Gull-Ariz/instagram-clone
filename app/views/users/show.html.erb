@@ -1,0 +1,38 @@
+<div class='container top-margin'>
+  <div class='row'>
+    <div class='col-4'>
+      <% if @user.profile_picture.attached? %>
+        <%= image_tag @user.profile_picture, class: 'profile-picture'%>
+      <%end%>
+    </div>
+    <div class='col-8 text-left mt-5'>
+      <h1><%= @user.user_name%></h1>
+      <%if @user.id == current_user.id %>
+        <%= link_to 'Edit Profile', edit_user_registration_path, class:'btn btn-secondary profile-path'%>
+      <%end%>
+      <div class='profile-stats'>
+        <%= @user.posts.count %> posts
+      </div>
+      <div class='profile-stats'>
+        <a href='<%= followers_user_path(current_user)%>' class='text-reset'> <%= @user.followers.where(accepted: true).count %> followers</a>
+      </div>
+      <div class='profile-stats'>
+        <a href='<%= followeds_user_path(current_user)%>' class='text-reset'> <%= @user.followeds.where(accepted: true).count %> following</a>
+      </div>
+      <br /><%= @user.bio%>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-md-12'>
+      <% @user.posts.each do |post| %>
+        <% if policy(post).show? %>
+          <div class='d-flex flex-row justify-content-start'>
+            <% post.images.each do |image|%>
+              <a href='<%= post_path(post)%>'><%= image_tag image, class: 'mx-auto p-5 img-stack'%></a>
+            <%end%>
+          </div>
+        <%end%>
+      <%end%>
+    </div>
+  </div>
+</div>

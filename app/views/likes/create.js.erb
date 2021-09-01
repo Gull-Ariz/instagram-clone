@@ -1,0 +1,1 @@
+$('#like-or-unlike-<%= @like.post.id.to_s %>').html("<%= j(render partial: 'likes/post_likes', locals:{ post: @like.post }) %>");

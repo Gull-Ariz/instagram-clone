@@ -1,0 +1,32 @@
+<div class='page-header'>
+  <small class='m-1'><%= post.comments.size %> comments</small>
+</div>
+<div class='comments-list'>
+  <% post.comments.each do |comment|%>
+    <div class='comments-field'>
+      <div class='d-flex justify-content-start'>
+        <h5 class='font-weight-bold mt-2'><%= comment.user.user_name%></h5>
+      </div>
+      <div id='show-<%=comment.id.to_s%>'>
+        <%= comment.content %>
+        <% if policy(comment).update?%>
+          <div class='pull-right'>
+            <%= link_to edit_comment_path(comment), remote: true, class: 'm-2' do%>
+              <%= fa_icon 'edit muted'%>
+            <%end%>
+          </div>
+        <%end%>
+        <%if policy(comment).destroy?%>
+          <div class='pull-right'>
+            <%= link_to comment_path(comment), remote: true, class: 'm-2', method: :delete, data: { confirm: 'Are you sure?' } do %>
+              <%= fa_icon 'trash muted'%>
+            <%end%>
+          </div>
+        <% end %>
+      </div>
+      <div id='edit-<%=comment.id.to_s%>' class="d-none">
+        <%= render 'comments/edit', comment: comment%>
+      </div>
+    </div>
+  <% end %>
+</div>

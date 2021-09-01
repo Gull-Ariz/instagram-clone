@@ -1,0 +1,1 @@
+$('#comment-post-<%= @comment.post.id.to_s %>').html("<%= j(render partial: 'posts/show_comments', locals: { post: @comment.post }) %>");

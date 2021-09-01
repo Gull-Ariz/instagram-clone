@@ -1,0 +1,11 @@
+<small><%= link_to 'See all', stories_path, class:'top-margin'%></small>
+<div class='stories-block'>
+  <% stories.each do |story| %>
+    <div class='col-md-1 ms-2'>
+      <%= link_to story_path(story.id) do %>
+        <%= render 'shared/profile_picture', profile_picture: story.user.profile_picture %>
+      <%end%>
+        <%= link_to story.user.user_name, story_path(story.id), class:'profile-path'%>
+      </div>
+  <%end%>
+</div>

@@ -1,0 +1,88 @@
+// Place all the styles related to the account controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.post-meta{
+  text-align: left;
+  font-weight: bold;
+  padding: 5px;
+  border: 1px solid #ddd;
+  img {
+    margin-right: 10px;
+  }
+}
+
+.account-summary{
+  text-align: left;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.profile-path {
+  text-decoration: none;
+  color: black;
+}
+
+.follower-suggestions {
+  margin-top: 20px;
+  background: #fff;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  max-height: 1000px;
+  width: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.profile-pic {
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+}
+
+.profile-stats {
+  width: 120px;
+  float: left;
+}
+
+.post-details {
+  background: #fff;
+  padding: 20px;
+}
+
+.post-image{
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.imageContainer {
+  width: 855px;
+  height: 500px;
+}
+
+.stories-block {
+  margin-top: 30px;
+  background: #fff;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  max-width: 854px;
+  max-height: 100px;
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.img-stack {
+  width: 400px;
+  height: 400px;
+}
+
+.profile-picture {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+}

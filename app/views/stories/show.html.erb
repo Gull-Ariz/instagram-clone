@@ -1,0 +1,37 @@
+<div class="container top-margin">
+  <%= render 'shared/flashmessage' %>
+  <div class='mt-5 d-flex justify-content-center'>
+    <% if @story.user.profile_picture.attached? %>
+      <%= image_tag @story.user.profile_picture, width: '100px', height: '100px' %>
+    <%end%>
+  </div>
+  <div class='d-flex justify-content-center'>
+    <h2><%= @story.user.user_name %></h2>
+  </div>
+  <div class='d-flex justify-content-center'>
+    <% if policy(@story).destroy? %>
+      <%= link_to 'Delete Story', story_path(@story.id), class: 'btn btn-danger', method: :delete, data: { confirm: 'Are you sure?' }%>
+    <%end%>
+  </div>
+  <div class='mt-5 d-flex justify-content-center'>
+    <% @story.images.each do |image|%>
+      <div id='carouselExampleSlidesOnly' class='carousel slide' data-bs-ride='carousel'>
+        <div class='carousel-inner'>
+          <% @story.images.each_with_index do |image, i|%>
+            <div class='carousel-item <%= 'active ' if i == 0 %> '>
+              <%= cl_image_tag(image.key, class:'post-image') %>
+            </div>
+          <%end%>
+        </div>
+        <button class='carousel-control-prev' type='button' data-bs-target='#carouselExampleControls' data-bs-slide='prev'>
+          <span class='carousel-control-prev-icon' aria-hidden='true'></span>
+          <span class='visually-hidden'>Previous</span>
+        </button>
+        <button class='carousel-control-next' type='button' data-bs-target='#carouselExampleControls' data-bs-slide='next'>
+          <span class='carousel-control-next-icon' aria-hidden='true'></span>
+          <span class='visually-hidden'>Next</span>
+        </button>
+      </div>
+    <%end%>
+  </div>
+</div>
