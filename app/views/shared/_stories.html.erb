@@ -1,0 +1,15 @@
+<small><%= link_to 'See all', stories_path, class:'top-margin'%></small>
+<div class='stories-block'>
+  <% stories.each do |story| %>
+    <div class='col-md-1'>
+    <%= link_to story_path(story.id) do %>
+      <% if story.user.profile_picture.attached? %>
+        <%= image_tag story.user.profile_picture, class: 'profile-pic' %>
+      <% else %>
+        <%= image_tag 'default_dp.jpg', class: 'profile-pic'%>
+      <%end%>
+    <%end%>
+      <%= link_to story.user.user_name, story_path(story.id), class:'profile-path'%>
+    </div>
+  <%end%>
+</div>

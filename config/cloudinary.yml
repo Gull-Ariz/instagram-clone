@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: gullariz
+  api_key: '598856378121594'
+  api_secret: y9KisaH8c_dGVatcwZnHG7V0KsE
+  enhance_image_tag: true
+  static_file_support: false
+production:
+  cloud_name: gullariz
+  api_key: '598856378121594'
+  api_secret: y9KisaH8c_dGVatcwZnHG7V0KsE
+  enhance_image_tag: true
+  static_file_support: true
+test:
+  cloud_name: gullariz
+  api_key: '598856378121594'
+  api_secret: y9KisaH8c_dGVatcwZnHG7V0KsE
+  enhance_image_tag: true
+  static_file_support: false
